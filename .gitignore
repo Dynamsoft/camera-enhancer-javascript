@@ -39,7 +39,7 @@ yarn.lock
 /*.js
 /*.txt
 /.gitattributes
-# /.*ignore
+/.*ignore
 /DCE-*
 /sampleFromGithub
 /src
