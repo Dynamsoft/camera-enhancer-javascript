@@ -2,7 +2,6 @@
 node_modules
 build
 /Test*
-.map
 
 # local env files
 .env.local
@@ -21,6 +20,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+*.map
 
 __pycache__
 ~~*
