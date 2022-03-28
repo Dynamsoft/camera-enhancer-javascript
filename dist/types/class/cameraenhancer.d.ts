@@ -27,7 +27,7 @@ export default class CameraEnhancer {
     private static _engineResourcePath?;
     /**
      * ```js
-     * Dynamsoft.DCE.CameraEnhancer.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@2.3.1/dist/";
+     * Dynamsoft.DCE.CameraEnhancer.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@2.3.2/dist/";
      * ```
     */
     static set engineResourcePath(value: string);
@@ -50,7 +50,7 @@ export default class CameraEnhancer {
      * The url of the default UI.
      * Can only be changed before `createInstance`.
      * ```js
-     * Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@2.3.1/dist/dce.ui.html";
+     * Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@2.3.2/dist/dce.ui.html";
      * let pEnhancer = null;
      * (async()=>{
      *     let enhancer = await (pEnhancer = pEnhancer || Dynamsoft.DCE.CameraEnhancer.createInstance());
@@ -566,7 +566,7 @@ export default class CameraEnhancer {
      */
     setResolution(width: number | number[], height: number): Promise<PlayCallbackInfo>;
     /**
-     * Return available resolutions among 160*120, 320*240, 480*360, 640*480, 800*600, 960*720, 1280*720, 1920*1080, 3840*2160.
+     * Return available resolutions among 160*120, 320*240, 480*360, 640*480, 800*600, 960*720, 1280*720, 1920*1080, 2560*1440, 3840*2160.
      * @ignore
      */
     getResolutions(forceGet?: boolean): Promise<Array<Array<number>>>;
