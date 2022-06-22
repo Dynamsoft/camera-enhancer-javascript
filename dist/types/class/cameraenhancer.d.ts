@@ -318,7 +318,7 @@ export default class CameraEnhancer {
      */
     setViewDecoratorFillStyle(type: string, style: string): void;
     /**
-     * Set the fill style for drawing the ask for the view decorator.
+     * Set the fill style for drawing the mask for the view decorator.
      * @see [[setViewDecorator]]
      */
     setViewDecoratorMaskFillStyle(type: string, style: string): void;
@@ -573,7 +573,7 @@ export default class CameraEnhancer {
     private readonly mapCameraEvents;
     /**
      * Attach an event handler function for a specified built-in event.
-     * Diffierent event handlers could be attached for the same event.
+     * Different event handlers could be attached for the same event.
      * ```js
      * const cameraOpenEvent = ()=>{console.log("Camera Open.")};
      * const cameraCloseEvent = ()=>{console.log("Camera Close.")};
