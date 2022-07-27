@@ -11,6 +11,8 @@ export interface DCEFrame {
     timeStamp: number;
     isCropped: boolean;
     toCanvas: () => HTMLCanvasElement;
+    _sWidth: number;
+    _sHeight: number;
     /**
      * @ignore
      */

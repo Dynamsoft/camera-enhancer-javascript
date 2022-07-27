@@ -3,7 +3,11 @@ import { VideoDeviceInfo } from '../interface/videodeviceinfo';
 import { Region } from '../interface/region';
 import { DCEFrame } from '../interface/DCEFrame';
 import { Area } from '../interface/Area';
-export default class CameraEnhancer {
+import { ImageSource } from '../interface/imagesource';
+import { DSImage } from '../interface/dsimage';
+import { Controler } from './controler';
+import { Warning } from '../interface/warning';
+export default class CameraEnhancer implements ImageSource {
     private static _jsVersion;
     private static _jsEditVersion;
     private static _version;
@@ -14,7 +18,12 @@ export default class CameraEnhancer {
      * modify from https://gist.github.com/2107/5529665
      * @ignore
      */
-    static browserInfo: any;
+    static browserInfo: {
+        browser: string;
+        version: string | number;
+        OS: string;
+    };
+    static onWarning: (warning: Warning) => void;
     /**
      * Detect environment and get a report.
      * ```js
@@ -27,7 +36,7 @@ export default class CameraEnhancer {
     private static _engineResourcePath?;
     /**
      * ```js
-     * Dynamsoft.DCE.CameraEnhancer.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@2.3.2/dist/";
+     * Dynamsoft.DCE.CameraEnhancer.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.0.0/dist/";
      * ```
     */
     static set engineResourcePath(value: string);
@@ -37,20 +46,22 @@ export default class CameraEnhancer {
      * @ignore
      */
     static isStorageAvailable(type: string): boolean;
+    /** @ignore */
+    static isDCEFrame(value: any): boolean;
     private _maxCvsSideLength;
     private _defaultMaxCvsSideLength;
     /** @ignore */
     set maxCvsSideLength(value: number);
     get maxCvsSideLength(): number;
-    private predefinedResolutions;
-    private mapCameraResolutions;
-    private _bWebGLSupported;
-    private static _defaultUIElementURL;
+    private _predefinedResolutions;
+    private _mapCameraResolutions;
+    _bWebGLSupported: boolean;
+    static _defaultUIElementURL: string;
     /**
      * The url of the default UI.
      * Can only be changed before `createInstance`.
      * ```js
-     * Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@2.3.2/dist/dce.ui.html";
+     * Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.0.0/dist/dce.ui.html";
      * let pEnhancer = null;
      * (async()=>{
      *     let enhancer = await (pEnhancer = pEnhancer || Dynamsoft.DCE.CameraEnhancer.createInstance());
@@ -60,6 +71,8 @@ export default class CameraEnhancer {
      */
     static set defaultUIElementURL(value: string);
     static get defaultUIElementURL(): string;
+    private _uiOriginalState;
+    extraBindings: Array<(el: HTMLElement) => void>;
     /** @ignore */
     private UIElement;
     /**
@@ -86,6 +99,8 @@ export default class CameraEnhancer {
      * @category UI
      */
     setUIElement(elementOrUrl: HTMLElement | string): Promise<void>;
+    appendAndShowUI(): void;
+    hideUI(): void;
     private _singleFrameMode;
     /**
      * A mode not use video, get a frame from OS camera instead.
@@ -114,6 +129,8 @@ export default class CameraEnhancer {
      */
     set singleFrameMode(value: boolean);
     private _cvsSingleFrameMode;
+    private _originalImageData;
+    private _cvsOriginalImage;
     private _imgWidth;
     private _imgHeight;
     private _singleFrameModeIpt;
@@ -131,27 +148,26 @@ export default class CameraEnhancer {
     private currentFSColorMode;
     ifReuseArrayBufferView: boolean;
     maxVideoCvsLength: number;
-    private canvas;
-    private videoGlCvs?;
-    private videoGl?;
-    private glImgData?;
-    private webglTexture;
-    private webglProgramInfo;
-    private webglBuffers;
-    private toCanvas;
+    private _reusedCvs;
+    private _reusedWebGLCvs?;
+    private _reusedWebGLCtx?;
+    private _reusedDataContainer?;
+    private _webGLTexture;
+    private _webGLProgramInfo;
+    private _webGLBuffers;
+    private _recordedStates;
+    playCallbackInfo: PlayCallbackInfo;
+    private _toCanvas;
     /** @ignore */
     _onCameraSelChange: () => Promise<void>;
     /** @ignore */
     _onResolutionSelChange: () => Promise<void>;
     /** @ignore */
     _onCloseBtnClick: () => void;
-    /** @ignore */
-    _bindUI(): void;
-    /** @ignore */
-    _unbindUI(): void;
     private _bOpen;
     private set bOpen(value);
-    private _assertOpen;
+    readonly isCameraEnhancer: boolean;
+    readonly isDisposed: boolean;
     /**
      * Set src to video element to play static video.
      */
@@ -181,6 +197,7 @@ export default class CameraEnhancer {
     _lastDeviceId: string;
     private _vc_bPlayingVideoBeforeHide;
     private _ev_documentHideEvent;
+    private _divVideoContainer;
     private _video;
     /**
      * The video element the `CameraEnhancer` instance is bound.
@@ -216,6 +233,10 @@ export default class CameraEnhancer {
     _optGotRsl: any;
     /** @ignore */
     _btnClose: any;
+    /** @ignore */
+    _selMinLtr: any;
+    /** @ignore */
+    _optGotMinLtr: any;
     private regionMaskFillStyle;
     private regionMaskStrokeStyle;
     private regionMaskLineWidth;
@@ -229,18 +250,22 @@ export default class CameraEnhancer {
     private showScanRegionMask;
     private hideScanRegionMask;
     private _bShowScanRegionLaser;
+    private _defaultBShowScanRegionLaser;
     /**
      * Whether to show laser in scan region.
      * @see [[setScanRegion]],[[getScanRegion]]
      */
     set ifShowScanRegionLaser(value: boolean);
     get ifShowScanRegionLaser(): boolean;
-    private showScanRegionLaser;
-    private hideScanRegionLaser;
+    showScanRegionLaser(): void;
+    hideScanRegionLaser(): void;
     private _checkValidRegion;
     private _scanRegion;
     private set scanRegion(value);
+    private _scanRegionOverlayContainer;
     private _arrScanRegionOverlays;
+    private _drawingLayersManager;
+    private _layerBaseCvs;
     /**
      * Set the scan region.
      * ```js
@@ -262,23 +287,25 @@ export default class CameraEnhancer {
      * @see [[setScanRegion]]
      */
     getScanRegion(): Region;
+    private _calculateCvsSize;
     /**
      * Add a canvas of the same size as the scan area directly above the scan area.
      * @see [[setScanRegion]],[[getScanRegion]]
      */
     addScanRegionOverlayCanvas(): HTMLCanvasElement;
+    removeScanRegionOverlayCanvas(overlay: HTMLCanvasElement): void;
     /**
-     * adjust overlays in '_arrScanRegionOverlays' to match '_scanRegion'
+     * adjust overlay to match'_scanRegion'
      * might be called when:
      * 1. 'addScanRegionOverlayCanvas' is called;
      * 2. 'scanRegion' is set;
      * 3. camera resolution changes in 'play()';
-     * 4. window resizes;
+     * 4. video container resizes;
      * 5. 'setVideoFit' is called;
      * 6. 'bOpen' is set to true;
      * 7. select a new image in singleFrameMode
      * @param overlay
-     * @ignore
+     * @private
      */
     private _updateScanRegionOverlay;
     private showScanRegionOverlays;
@@ -326,7 +353,7 @@ export default class CameraEnhancer {
      * might be called when:
      * 1. 'setViewDecoratorLineWidth', 'setViewDecoratorStrokeStyle', 'setViewDecoratorFillStyle' or 'setViewDecoratorMaskFillStyle' is called;
      * 2. camera resolution changes in 'play()';
-     * 3. window resizes;
+     * 3. video container resizes;
      * 4. 'setVideoFit' is called;
      * 5. 'bOpen' is set to true;
      * @ignore
@@ -350,6 +377,14 @@ export default class CameraEnhancer {
      * @returns
      * @ignore
      */
+    /**
+     * Transfor percentage region to pixel region.
+     * @param width width of the whole area
+     * @param height width of the whole area
+     * @param region target region
+     * @returns pixel region
+     * @private
+     */
     private _getRegionInPixels;
     /**
      * might be called when:
@@ -358,8 +393,7 @@ export default class CameraEnhancer {
      * 3. camera resolution changes in 'play()';
      * 4. 'setScanRegionMaskStyle()' is called;
      * 5. 'setVideoFit' is called;
-     * 6. window resizes;
-     * 7. select a new image in singleFrameMode
+     * 6. select a new image in singleFrameMode
      * @ignore
      */
     private _updateScanRegionCanvas;
@@ -368,7 +402,7 @@ export default class CameraEnhancer {
      * 1. 'bOpen' is set to true;
      * 2. 'scanRegion' is set;
      * 3. camera resolution changes in 'play()';
-     * 4. window resizes;
+     * 4. video container resizes;
      * 5. 'setVideoFit' is called;
      * @ignore
      */
@@ -379,6 +413,7 @@ export default class CameraEnhancer {
      * Only be valid when scanRegion is null and startFetchingLoop() is called;
      * Change scan region in turn according to the set array.
      * @see [[croppingRegionIndex]],[[startFetchingLoop]]
+     * @deprecated
      */
     set croppingRegions(value: Region[]);
     get croppingRegions(): Region[];
@@ -387,6 +422,7 @@ export default class CameraEnhancer {
     /**
      * The index of current scan region in cropping region array.
      * @see [[croppingRegions]]
+     * @deprecated
      */
     set croppingRegionIndex(index: number);
     get croppingRegionIndex(): number;
@@ -414,7 +450,6 @@ export default class CameraEnhancer {
     private _frameQueue;
     private _frameLoopTimeoutId;
     private _bFetchingLoopStarted;
-    private _bStoppedByPause;
     private _refreshInterval;
     private _defaultRefreshInterval;
     /**
@@ -428,27 +463,17 @@ export default class CameraEnhancer {
     get refreshInterval(): number;
     private _frameLoopTimeoutId2;
     private _resizeTimeoutId;
-    private _updateCanvasTimeout;
-    /**
-     * @ignore
-     */
-    referenceConfigurationArray: Array<any>;
-    private _onWindowResize;
-    /**
-     * Indicates whether the instance has been destroyed.
-     * to do
-     * @ignore
-     */
-    private bDestroyed;
-    private isContextDestroyed;
+    private _updateLayersTimeout;
+    private _updateLayers;
+    private _resizeObserver;
     /**
      * Create a `CameraEnhancer` object.
-    * ```js
-    * let pEnhancer = null;
-    * (async()=>{
-    *     let enhancer = await (pEnhancer = pEnhancer || Dynamsoft.DCE.CameraEnhancer.createInstance());
-    * })();
-    * ```
+     * ```js
+     * let pEnhancer = null;
+     * (async()=>{
+     *     let enhancer = await (pEnhancer = pEnhancer || Dynamsoft.DCE.CameraEnhancer.createInstance());
+     * })();
+     * ```
      * @param config
      * @see [[dispose]]
      * @category Initialize and Destroy
@@ -462,7 +487,7 @@ export default class CameraEnhancer {
      * @returns
      * @ignore
      */
-    play(deviceId?: string, width?: number, height?: number): Promise<PlayCallbackInfo>;
+    play(deviceId?: string, width?: number, height?: number, options?: any): Promise<PlayCallbackInfo>;
     /**
      * Resume the video.
      * @see [[pause]]
@@ -480,18 +505,11 @@ export default class CameraEnhancer {
      * @category Pause and Resume
      */
     pause(): void;
-    /**
-     * Stops video streaming, unbind UI and releases the camera.
-     * ```js
-     * await enhancer.open();
-     * enhancer.close();
-     * ```
-     * @param hideUI  When true, make UIElement hide at the same time.
-     * @fires played,cameraClose
-     * @see [[open]]
-     * @category Open and Close
-     */
-    close(hideUI?: boolean): void;
+    /** @ignore */
+    _bindUI(): void;
+    /** @ignore */
+    _unbindUI(): void;
+    private _assertOpen;
     /**
      * Bind UI, open the camera and start streaming live video.
      * ```js
@@ -504,6 +522,18 @@ export default class CameraEnhancer {
      * @category Open and Close
      */
     open(appendOrShowUI?: boolean): Promise<PlayCallbackInfo>;
+    /**
+     * Stops video streaming, unbind UI and releases the camera.
+     * ```js
+     * await enhancer.open();
+     * enhancer.close();
+     * ```
+     * @param hideUI  When true, make UIElement hide at the same time.
+     * @fires played,cameraClose
+     * @see [[open]]
+     * @category Open and Close
+     */
+    close(hideUI?: boolean): void;
     /**
      * @ignore
      */
@@ -518,7 +548,7 @@ export default class CameraEnhancer {
      * ```
      * @category Camera Settings
      */
-    getAllCameras(): Promise<VideoDeviceInfo[]>;
+    getAllCameras(notForceGet?: boolean): Promise<VideoDeviceInfo[]>;
     private _renderSelCameraInfo;
     /**
      * Get information about the currently used camera.
@@ -607,6 +637,12 @@ export default class CameraEnhancer {
      * @see [[on]]
      */
     off(eventName: string, listener: Function): void;
+    /**
+     * Remove event handlers of specified type.
+     * @param eventName
+     * @see [[on]]
+     */
+    offAll(eventName?: string): void;
     /**
      * Get current video settings.
      * @category Camera Settings
@@ -767,12 +803,17 @@ export default class CameraEnhancer {
     getFocus(): Object;
     /**
      *
-     * @param width
-     * @param height
-     * @param region
-     * @param canvasSizeLimit
-     * @returns
-     * @ignore
+     * @param width width of the canvas
+     * @param height height of the canvas
+     * @param region the region to be cropped
+     * @param canvasSizeLimit If set, the cropped region may be resized when its size is bigger than set value.
+     * @returns {sx:number, sy:number, sWidth:number, sHeight:number, dWidth:number, dHeight:number}
+     * sx: the horizontal distance between the left top corner of of the cropped region and the whole canvas.
+     * sy: the vertical distance between the left top corner of the cropped region and the whole canvas.
+     * sWidth: width of the cropped region.
+     * sHeight: height of the cropped region.
+     * dWidth: width of the cropped region. May be different from 'sWidth' when 'canvasSizeLimit' is set.
+     * dHeight: height of the cropped region. May be different from 'sHeight' when 'canvasSizeLimit' is set.
      */
     getFrameSize(width: number, height: number, region?: Region, canvasSizeLimit?: number): {
         sx: number;
@@ -787,6 +828,7 @@ export default class CameraEnhancer {
      * @see [[setScanRegion]],[[getScanRegion]]
      */
     getFrame(): DCEFrame;
+    getImage(): DSImage;
     /**
      *
      * @param region
@@ -822,7 +864,7 @@ export default class CameraEnhancer {
         _bUseWebGL: boolean;
     };
     /**
-     * @ignore
+     * @private
      */
     private getCurrentRegion;
     private _fetchingLoop;
@@ -848,9 +890,32 @@ export default class CameraEnhancer {
     getFrameFromBuffer(index?: number): DCEFrame;
     /**
      * Force lose webgl context.
-     * @ignore
+     * @private
      */
     private forceLoseContext;
+    private _createDrawingLayerBaseCvs;
+    private _updateDrawingLayersSize;
+    _createDrawingLayer(drawingLayerId?: number): import("./drawinglayer").default;
+    createDrawingLayer(): import("./drawinglayer").default;
+    getDrawingLayer(drawingLayerId: number): import("./drawinglayer").default;
+    getDrawingLayers(): import("./drawinglayer").default[];
+    getSelectedDrawingItems(): any[];
+    createDrawingStyle(styleDefinition: any): number;
+    getDrawingStyle(styleId: number): import("..").DrawingStyle;
+    getDrawingStyles(): import("..").DrawingStyle[];
+    updateDrawingStyle(styleId: number, styleDefinition: any): void;
+    clearDrawingLayers(): void;
+    private _controler;
+    _createControler(): Controler;
+    _destroyControler(): void;
+    setOriginalImage(imageData: Uint8Array | Uint8ClampedArray | HTMLCanvasElement, width: number, height: number): void;
+    getOriginalImage(): Uint8Array;
+    deleteOriginalImage(): Promise<void>;
+    private _showOriginalImageCvs;
+    private _hideOriginalImageCvs;
+    showOriginalImage(): void;
+    private _hideOriginalImage;
+    hideOriginalImage(): Promise<void>;
     /**
      * Releases all resources used by the 'CameraEnhancer' instance.
      * @param removeUIElement When true, remove the UIElement from DOM.
