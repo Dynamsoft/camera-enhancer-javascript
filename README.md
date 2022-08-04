@@ -13,6 +13,9 @@ In this guide, you will learn step by step on how to integrate this SDK into you
   * [Interact with the SDK](#interact-with-the-sdk)
 * [Hosting the SDK](#hosting-the-sdk)
 * [FAQ](#faq)
+* [API Documentation](#api-documentation)
+* [Release Notes](#release-notes)
+* [Next Steps](#next-steps)
 
 > **Example Usage**
 >
@@ -31,13 +34,13 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
 * jsDelivr
 
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.0.0/dist/dce.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.0.1/dist/dce.js"></script>
   ```
 
 * UNPKG  
 
   ```html
-  <script src="https://unpkg.com/dynamsoft-camera-enhancer@3.0.0/dist/dce.js"></script>
+  <script src="https://unpkg.com/dynamsoft-camera-enhancer@3.0.1/dist/dce.js"></script>
   ```
 
 #### Host the SDK yourself
@@ -65,7 +68,7 @@ The following shows a few ways to download the SDK.
 Depending on how you downloaded the SDK and where you put it. You can typically include it like this:
 
 ```html
-<script src="/dce-js-3.0.0/dist/dce.js"></script>
+<script src="/dce-js-3.0.1/dist/dce.js"></script>
 ```
 
 or
@@ -233,3 +236,20 @@ To make sure your web application can access the camera, please configure your w
 * IIS: [Create a Self Signed Certificate in IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/)
 * Tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
 * Node.js: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
+
+## API Documentation
+
+You can check out the detailed documentation about the APIs of the SDK at
+[https://www.dynamsoft.com/camera-enhancer/docs/programming/javascript/api-reference/index.html](https://www.dynamsoft.com/camera-enhancer/docs/programming/javascript/api-reference/index.html).
+
+## Release Notes
+
+Learn about what are included in each release at [https://www.dynamsoft.com/camera-enhancer/docs/programming/javascript/release-note/index.html](https://www.dynamsoft.com/camera-enhancer/docs/programming/javascript/release-note/index.html).
+
+## Next Steps
+
+Now that you have got the SDK integrated, you can choose to move forward in the following directions
+
+1. Learn how to make use of the [Shape Drawing Feature](https://www.dynamsoft.com/camera-enhancer/docs/programming/javascript/user-guide/features/draw-shapes.html).
+2. Check out the [official samples on Github](https://github.com/Dynamsoft/camera-enhancer-javascript-samples).
+3. Learn about the available [APIs](https://www.dynamsoft.com/camera-enhancer/docs/programming/javascript/api-reference/index.html).
