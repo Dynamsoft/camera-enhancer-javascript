@@ -7,6 +7,7 @@ import { ImageSource } from '../interface/imagesource';
 import { DSImage } from '../interface/dsimage';
 import { Controler } from './controler';
 import { Warning } from '../interface/warning';
+declare type PixelFormat = "grey" | "grey32" | "rgba" | "rbga" | "grba" | "gbra" | "brga" | "bgra";
 export default class CameraEnhancer implements ImageSource {
     private static _jsVersion;
     private static _jsEditVersion;
@@ -15,12 +16,11 @@ export default class CameraEnhancer implements ImageSource {
     static _onLog: (message: any) => void;
     static getVersion(): string;
     /**
-     * modify from https://gist.github.com/2107/5529665
      * @ignore
      */
     static browserInfo: {
         browser: string;
-        version: string | number;
+        version: number;
         OS: string;
     };
     static onWarning: (warning: Warning) => void;
@@ -36,13 +36,13 @@ export default class CameraEnhancer implements ImageSource {
     private static _engineResourcePath?;
     /**
      * ```js
-     * Dynamsoft.DCE.CameraEnhancer.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.0.1/dist/";
+     * Dynamsoft.DCE.CameraEnhancer.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.1.0/dist/";
      * ```
     */
     static set engineResourcePath(value: string);
     static get engineResourcePath(): string;
     /**
-     * Check if storage is available
+     * Check if storage is available.
      * @ignore
      */
     static isStorageAvailable(type: string): boolean;
@@ -59,9 +59,8 @@ export default class CameraEnhancer implements ImageSource {
     static _defaultUIElementURL: string;
     /**
      * The url of the default UI.
-     * Can only be changed before `createInstance`.
      * ```js
-     * Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.0.1/dist/dce.ui.html";
+     * Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.1.0/dist/dce.ui.html";
      * let pEnhancer = null;
      * (async()=>{
      *     let enhancer = await (pEnhancer = pEnhancer || Dynamsoft.DCE.CameraEnhancer.createInstance());
@@ -84,7 +83,7 @@ export default class CameraEnhancer implements ImageSource {
     /**
      * Set html element bound to the `CameraEnhancer` instance.
      * ```html
-     * <div class="dce-video-container" style="postion:relative;width:100%;height:500px;"></div>
+     * <div class="dce-video-container" style="position:relative;width:100%;height:500px;"></div>
      * <script>
      *     let pEnhancer = null;
      *     (async()=>{
@@ -99,7 +98,13 @@ export default class CameraEnhancer implements ImageSource {
      * @category UI
      */
     setUIElement(elementOrUrl: HTMLElement | string): Promise<void>;
+    /**
+     * @ignore
+     */
     appendAndShowUI(): void;
+    /**
+     * @ignore
+     */
     hideUI(): void;
     private _singleFrameMode;
     /**
@@ -137,25 +142,35 @@ export default class CameraEnhancer implements ImageSource {
     private _clickIptSingleFrameMode;
     /** @ignore */
     private styleEls;
-    private _frameColorMode;
-    private _defaultFrameColorMode;
+    /**
+     * Set 'getFrame()' target color mode.
+     * Supported vaule: 'rgba', 'rbga', 'grba', 'gbra', 'brga', 'bgra', 'grey'.
+     * @deprecated
+     */
+    set frameColorMode(value: PixelFormat);
+    get frameColorMode(): PixelFormat;
+    private _framePixelFormat;
+    private _defaultFramePixelFormat;
     /**
      * Set 'getFrame()' target color mode.
      * Supported vaule: 'rgba', 'rbga', 'grba', 'gbra', 'brga', 'bgra', 'grey'.
      */
-    set frameColorMode(value: string);
-    get frameColorMode(): string;
-    private currentFSColorMode;
-    ifReuseArrayBufferView: boolean;
+    set framePixelFormat(value: PixelFormat);
+    get framePixelFormat(): PixelFormat;
+    private mapPixelFormatString_Enum;
+    private shaderPixelFormat;
     maxVideoCvsLength: number;
     private _reusedCvs;
     private _reusedWebGLCvs?;
-    private _reusedWebGLCtx?;
-    private _reusedDataContainer?;
+    private _tempDataContainer?;
     private _webGLTexture;
     private _webGLProgramInfo;
     private _webGLBuffers;
+    private _softwareScale;
     private _recordedStates;
+    /**
+     * @deprecated
+     */
     playCallbackInfo: PlayCallbackInfo;
     private _toCanvas;
     /** @ignore */
@@ -167,7 +182,11 @@ export default class CameraEnhancer implements ImageSource {
     private _bOpen;
     private set bOpen(value);
     readonly isCameraEnhancer: boolean;
+    /**
+     * @deprecated
+     */
     readonly isDisposed: boolean;
+    readonly disposed: boolean;
     /**
      * Set src to video element to play static video.
      */
@@ -197,7 +216,9 @@ export default class CameraEnhancer implements ImageSource {
     _lastDeviceId: string;
     private _vc_bPlayingVideoBeforeHide;
     private _ev_documentHideEvent;
-    private _divVideoContainer;
+    containerClassName: string;
+    private _elContainer;
+    private _videoContainer;
     private _video;
     /**
      * The video element the `CameraEnhancer` instance is bound.
@@ -215,6 +236,16 @@ export default class CameraEnhancer implements ImageSource {
      * @see [[video]]
      */
     getVideoFit(): string;
+    /**
+     * For debug.
+     * @ignore
+     */
+    _showElClassName(): void;
+    /**
+     * For debug.
+     * @ignore
+     */
+    _hideElClassName(): void;
     /** @ignore */
     _cvsScanRegion: HTMLCanvasElement;
     /** @ignore */
@@ -296,14 +327,14 @@ export default class CameraEnhancer implements ImageSource {
     removeScanRegionOverlayCanvas(overlay: HTMLCanvasElement): void;
     /**
      * adjust overlay to match'_scanRegion'
-     * might be called when:
+     * Might be called when:
      * 1. 'addScanRegionOverlayCanvas' is called;
      * 2. 'scanRegion' is set;
      * 3. camera resolution changes in 'play()';
-     * 4. video container resizes;
+     * 4. container resizes;
      * 5. 'setVideoFit' is called;
      * 6. 'bOpen' is set to true;
-     * 7. select a new image in singleFrameMode
+     * 7. '_clickIptSingleFrameMode' is triggered;
      * @param overlay
      * @private
      */
@@ -350,12 +381,13 @@ export default class CameraEnhancer implements ImageSource {
      */
     setViewDecoratorMaskFillStyle(type: string, style: string): void;
     /**
-     * might be called when:
+     * Might be called when:
      * 1. 'setViewDecoratorLineWidth', 'setViewDecoratorStrokeStyle', 'setViewDecoratorFillStyle' or 'setViewDecoratorMaskFillStyle' is called;
      * 2. camera resolution changes in 'play()';
-     * 3. video container resizes;
+     * 3. container resizes;
      * 4. 'setVideoFit' is called;
      * 5. 'bOpen' is set to true;
+     * 6. '_clickIptSingleFrameMode' is triggered;
      * @ignore
      */
     private _updateViewDecorator;
@@ -387,23 +419,25 @@ export default class CameraEnhancer implements ImageSource {
      */
     private _getRegionInPixels;
     /**
-     * might be called when:
+     * Might be called when:
      * 1. 'bOpen' is set to true;
      * 2. 'scanRegion' is set;
      * 3. camera resolution changes in 'play()';
      * 4. 'setScanRegionMaskStyle()' is called;
      * 5. 'setVideoFit' is called;
-     * 6. select a new image in singleFrameMode
+     * 6. select a new image in singleFrameMode;
+     * 7. container resizes;
      * @ignore
      */
     private _updateScanRegionCanvas;
     /**
-     * might be called when:
+     * Might be called when:
      * 1. 'bOpen' is set to true;
      * 2. 'scanRegion' is set;
      * 3. camera resolution changes in 'play()';
-     * 4. video container resizes;
+     * 4. container resizes;
      * 5. 'setVideoFit' is called;
+     * 6. '_clickIptSingleFrameMode' is triggered;
      * @ignore
      */
     private _updateScanAreaDiv;
@@ -479,6 +513,8 @@ export default class CameraEnhancer implements ImageSource {
      * @category Initialize and Destroy
      */
     static createInstance(config?: any): Promise<CameraEnhancer>;
+    private static playVideo;
+    private static findBestRearCamera;
     /**
      *
      * @param deviceId
@@ -548,7 +584,7 @@ export default class CameraEnhancer implements ImageSource {
      * ```
      * @category Camera Settings
      */
-    getAllCameras(notForceGet?: boolean): Promise<VideoDeviceInfo[]>;
+    getAllCameras(force?: boolean): Promise<VideoDeviceInfo[]>;
     private _renderSelCameraInfo;
     /**
      * Get information about the currently used camera.
@@ -599,7 +635,7 @@ export default class CameraEnhancer implements ImageSource {
      * Return available resolutions among 160*120, 320*240, 480*360, 640*480, 800*600, 960*720, 1280*720, 1920*1080, 2560*1440, 3840*2160.
      * @ignore
      */
-    getResolutions(forceGet?: boolean): Promise<Array<Array<number>>>;
+    getResolutions(force?: boolean): Promise<Array<Array<number>>>;
     private readonly mapCameraEvents;
     /**
      * Attach an event handler function for a specified built-in event.
@@ -666,6 +702,8 @@ export default class CameraEnhancer implements ImageSource {
     /**
      * Get the camera capabilities. Unavailable in Firefox.
      * Only available when the camera is open.
+     * More information:
+     * https://developer.mozilla.org/en-US/docs/Web/API/InputDeviceInfo/getCapabilities
      * ```
      * > enhancer.getCapabilities()
      * < {
@@ -690,14 +728,24 @@ export default class CameraEnhancer implements ImageSource {
      * @category Camera Settings
      */
     getCapabilities(): MediaTrackCapabilities;
-    /** @ignore */
+    /**
+     * See:
+     * https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/getSettings
+     * @ignore
+     * */
     getCameraSettings(): MediaTrackSettings;
-    /** @ignore */
+    /**
+     * See:
+     * https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/getConstraints
+     * @ignore
+     * */
     getConstraints(): MediaTrackConstraints;
     /**
      * Set the camera capabilities.
      * Only available when the camera is open.
      * It's a low-level API, usually you can use the wrapped APIs instead.
+     * More information:
+     * https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/applyConstraints
      * ```js
      * await enhancer.applyConstraints({ frameRate: { ideal:5 } });
      * ```
@@ -737,6 +785,7 @@ export default class CameraEnhancer implements ImageSource {
      * @category Camera Settings
      */
     setColorTemperature(value: number): Promise<void>;
+    getColorTemperature(): number;
     /**
      * Adjusts the exposure level. Only available in Chrome and Edge.
      * Only available when the camera is open.
@@ -748,10 +797,10 @@ export default class CameraEnhancer implements ImageSource {
      * @category Camera Settings
      */
     setExposureCompensation(value: number): Promise<void>;
+    getExposureCompensation(): number;
     /**
-     * Adjusts the zoom ratio. Only available in Chrome and Edge.
+     * Adjusts the zoom ratio.
      * Only available when the camera is open.
-     * Will reject if not support.
      * ```js
      * await enhancer.setZoom(400);
      * ```
@@ -759,6 +808,7 @@ export default class CameraEnhancer implements ImageSource {
      * @category Camera Settings
      */
     setZoom(value: number): Promise<void>;
+    getZoom(): number;
     /**
      * Adjusts the frame rate. Only available in Chrome, Edge and Safari.
      * Only available when the camera is open.
@@ -801,6 +851,20 @@ export default class CameraEnhancer implements ImageSource {
      * @category Camera Settings
      */
     getFocus(): Object;
+    private _setHardwareScale;
+    private _getHardwareScale;
+    private _setSoftwareScale;
+    private _getSoftwareScale;
+    /**
+     * Might be called when:
+     * 1. container resizes;
+     * 2. 'setVideoFit()' is called;
+     * 3. '_scaleVideo()' is called;
+     * 4. resolution changed;
+     * @ignore
+     */
+    private _updateVideoContainerStyle;
+    private _scaleVideo;
     /**
      *
      * @param width width of the canvas
@@ -829,40 +893,15 @@ export default class CameraEnhancer implements ImageSource {
      */
     getFrame(): DCEFrame;
     getImage(): DSImage;
-    /**
-     *
-     * @param region
-     * @param bufferContainer
-     * @returns
-     * @ignore
-     */
-    _getVideoFrame(region?: Region, bufferContainer?: Uint8Array): DCEFrame;
-    /**
-     *
-     * @param source
-     * @param sourceWidth
-     * @param sourceHeight
-     * @param postion
-     * @param bufferContainer
-     * @param options
-     * @returns
-     * @ignore
-     */
-    _getImageData(source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, sourceWidth: number, sourceHeight: number, postion: {
-        sx: number;
-        sy: number;
-        sWidth: number;
-        sHeight: number;
-        dWidth: number;
-        dHeight: number;
-    }, bufferContainer?: Uint8Array, options?: {
-        targetColorMode?: string;
-        bUseWebGL?: boolean;
-    }): {
-        data: Uint8Array;
-        colorMode: string;
-        _bUseWebGL: boolean;
-    };
+    private _drawImage;
+    private _readCvsData;
+    private _transformPixelFormat;
+    private _getImageData;
+    _getVideoData(bufferContainer?: Uint8Array, options?: {
+        region?: Region;
+        pixelFormat?: PixelFormat;
+        scale?: number;
+    }): DCEFrame;
     /**
      * @private
      */
@@ -894,6 +933,15 @@ export default class CameraEnhancer implements ImageSource {
      */
     private forceLoseContext;
     private _createDrawingLayerBaseCvs;
+    /**
+     * Might be called when:
+     * 1. '_clickIptSingleFrameMode' is triggered;
+     * 2. 'bOpen' is set to 'true';
+     * 3. container resizes;
+     * 4. resolution is changed;
+     * 5. 'setOriginalImage()', 'showOriginalImage()' or '_hideOriginalImage()' is called;
+     * @ignore
+     */
     private _updateDrawingLayersSize;
     _createDrawingLayer(drawingLayerId?: number): import("./drawinglayer").default;
     createDrawingLayer(): import("./drawinglayer").default;
@@ -922,4 +970,5 @@ export default class CameraEnhancer implements ImageSource {
      */
     dispose(removeUIElement: boolean): void;
 }
+export {};
 //# sourceMappingURL=cameraenhancer.d.ts.map

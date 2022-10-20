@@ -1,12 +1,18 @@
 import { Region } from './region';
-export interface DCEFrame {
+import { DSImage } from './dsimage';
+export interface DCEFrame extends DSImage {
     data: Uint8Array;
     region: Region;
     sx: number;
     sy: number;
     width: number;
     height: number;
+    stride?: number;
+    /**
+     * @deprecated
+     */
     colorMode: string;
+    pixelFormat: string;
     timeSpent: number;
     timeStamp: number;
     isCropped: boolean;

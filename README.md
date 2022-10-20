@@ -4,7 +4,13 @@ Allow your website to easily control cameras on desktop and mobile devices.
 
 Once integrated, your users can open your website in a browser, access their cameras to stream live video and acquire realtime frames.
 
-In this guide, you will learn step by step on how to integrate this SDK into your website.
+> **Example Usage**
+>
+> See how Dynamsoft Camera Enhancer helps in camera control and video recognition:
+> - **Barcode scanning from video stream**: check [Dynamsoft Barcode Reader JS User Guide](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/user-guide/?ver=latest)
+> - **MRZ scanning and OCR from video stream**: check [Dynamsoft Label Recognizer JS User Guide](https://www.dynamsoft.com/label-recognition/programming/javascript/user-guide.html?ver=latest&utm_source=dceguide)
+
+In this guide, you will learn step by step on how to integrate the Dynamsoft Camera Enhancer SDK into your website.
 
 **Table of Contents**
 
@@ -17,12 +23,6 @@ In this guide, you will learn step by step on how to integrate this SDK into you
 * [Release Notes](#release-notes)
 * [Next Steps](#next-steps)
 
-> **Example Usage**
->
-> Read the user guide of Dynamsoft Label Recognizer on how DCE helps the SDK achieve video recognition:
->
-> * [Dynamsoft Label Recognizer User Guide](https://www.dynamsoft.com/label-recognition/programming/javascript/user-guide.html?ver=latest&utm_source=dceguide)
-
 ## Getting Started
 
 ### Include the SDK
@@ -34,13 +34,13 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
 * jsDelivr
 
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.0.1/dist/dce.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.1.0/dist/dce.js"></script>
   ```
 
 * UNPKG  
 
   ```html
-  <script src="https://unpkg.com/dynamsoft-camera-enhancer@3.0.1/dist/dce.js"></script>
+  <script src="https://unpkg.com/dynamsoft-camera-enhancer@3.1.0/dist/dce.js"></script>
   ```
 
 #### Host the SDK yourself
@@ -68,7 +68,7 @@ The following shows a few ways to download the SDK.
 Depending on how you downloaded the SDK and where you put it. You can typically include it like this:
 
 ```html
-<script src="/dce-js-3.0.1/dist/dce.js"></script>
+<script src="/dce-js-3.1.0/dist/dce.js"></script>
 ```
 
 or
@@ -122,10 +122,9 @@ The built-in UI of the `CameraEnhancer` object is defined in the file `dist/dce.
 * Copy the file `dist/dce.ui.html` to your project, modify it and use the the API `defaultUIElementURL` to set it as the default UI.
 
 ```javascript
+// To make sure the following line takes effect, put it before the API `open()` is called.
 Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "THE-URL-TO-THE-FILE";
 ```
-
-  > You must set `defaultUIElementURL` before you call `createInstance()` .
 
 * Append the default UI element to your page as shown in [Configure the CameraEnhancer object](#configure-the-cameraenhancer-object), customize it if necessary.
 

@@ -49,11 +49,11 @@ export default class DrawingLayer {
     removeDrawingItem(drawingItem: DrawingItem): void;
     removeDrawingItems(drawingItems: Array<DrawingItem>): void;
     setDrawingItems(drawingItems: Array<DrawingItem>): void;
-    getDrawingItems(): Array<DrawingItem>;
+    getDrawingItems(filter?: ((item: DrawingItem) => boolean)): Array<DrawingItem>;
     getSelectedDrawingItems(): Array<DrawingItem>;
     hasDrawingItem(drawingItem: DrawingItem): boolean;
     clearDrawingItems(): void;
-    setDrawingStyle(drawingStyleOrId: DrawingStyle | number, mediaType?: string, styleSelector?: string): void;
+    setDrawingStyle(drawingStyleId: number, mediaType?: string, styleSelector?: string): void;
     setMode(newMode: string): void;
     getMode(): string;
     _setDimensions(dimensions: {
