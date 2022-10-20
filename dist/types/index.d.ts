@@ -7,6 +7,7 @@ import { Area } from "./interface/Area";
 import { Point } from "./interface/point";
 import { DrawingStyle } from "./interface/drawingstyle";
 import { Warning } from "./interface/warning";
+import { DrawingItemEvent } from "./interface/DrawingItemEvent";
 declare const DrawingItem: {
     DT_Arc: typeof DT_Arc;
     DT_Polygon: typeof DT_Polygon;
@@ -16,5 +17,5 @@ declare const DrawingItem: {
     DT_Line: typeof DT_Line;
     DT_Group: typeof DT_Group;
 };
-export { CameraEnhancer, DrawingItem, PlayCallbackInfo, Region, DCEFrame, Area, Point, DrawingStyle, Warning };
+export { CameraEnhancer, DrawingItem, PlayCallbackInfo, Region, DCEFrame, Area, Point, DrawingStyle, Warning, DrawingItemEvent };
 //# sourceMappingURL=index.d.ts.map
