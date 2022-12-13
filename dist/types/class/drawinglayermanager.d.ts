@@ -11,7 +11,7 @@ export declare class DrawingLayersManager {
     private _updateDrawingStyle;
     updateDrawingStyle(styleId: number, styleDefinition: DrawingStyle): void;
     createDrawingLayer(baseCvs: HTMLCanvasElement, drawingLayerId?: number): DrawingLayer;
-    deleteDrwaingLayer(drawingLayerId?: number): void;
+    deleteDrawingLayer(drawingLayerId: number): void;
     clearDrawingLayers(): void;
     getDrawingLayer(drawingLayerId: number): DrawingLayer;
     getDrawingLayers(): Array<DrawingLayer>;

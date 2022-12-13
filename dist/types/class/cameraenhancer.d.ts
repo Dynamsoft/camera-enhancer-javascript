@@ -36,7 +36,7 @@ export default class CameraEnhancer implements ImageSource {
     private static _engineResourcePath?;
     /**
      * ```js
-     * Dynamsoft.DCE.CameraEnhancer.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.1.0/dist/";
+     * Dynamsoft.DCE.CameraEnhancer.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.2.0/dist/";
      * ```
     */
     static set engineResourcePath(value: string);
@@ -48,6 +48,10 @@ export default class CameraEnhancer implements ImageSource {
     static isStorageAvailable(type: string): boolean;
     /** @ignore */
     static isDCEFrame(value: any): boolean;
+    static testCameraAccess(): Promise<{
+        ok: boolean;
+        message: string;
+    }>;
     private _maxCvsSideLength;
     private _defaultMaxCvsSideLength;
     /** @ignore */
@@ -60,7 +64,7 @@ export default class CameraEnhancer implements ImageSource {
     /**
      * The url of the default UI.
      * ```js
-     * Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.1.0/dist/dce.ui.html";
+     * Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.2.0/dist/dce.ui.html";
      * let pEnhancer = null;
      * (async()=>{
      *     let enhancer = await (pEnhancer = pEnhancer || Dynamsoft.DCE.CameraEnhancer.createInstance());
@@ -167,6 +171,14 @@ export default class CameraEnhancer implements ImageSource {
     private _webGLProgramInfo;
     private _webGLBuffers;
     private _softwareScale;
+    private _scaleCenter;
+    private _focusParameters;
+    private _tapFocusEnabled;
+    private _focusSupported;
+    private _focusArea;
+    private _tapDoFocus;
+    private _touchMoved;
+    private _touchMoveEvent;
     private _recordedStates;
     /**
      * @deprecated
@@ -297,6 +309,11 @@ export default class CameraEnhancer implements ImageSource {
     private _arrScanRegionOverlays;
     private _drawingLayersManager;
     private _layerBaseCvs;
+    private _drawingLayerOfTip;
+    private _tipStyleId;
+    private _tipArgs;
+    private _hideTipTimeoutId;
+    onTipSuggested: (occasion: string, message: string) => void;
     /**
      * Set the scan region.
      * ```js
@@ -352,7 +369,7 @@ export default class CameraEnhancer implements ImageSource {
      * ```
      * @see [[getViewDecorator]],[[setViewDecoratorLineWidth]],[[setViewDecoratorStrokeStyle]],[[setViewDecoratorFillStyle]],[[setViewDecoratorMaskFillStyle]]
      */
-    setViewDecorator(type: string | string[], area: Area): void;
+    setViewDecorator(type: "rectangle" | "focus" | "crossline" | "crosshair" | string[], area: Area): void;
     /**
      * Return the view decorator type, area and the decorator itself in a object.
      * @see [[setViewDecorator]]
@@ -364,22 +381,22 @@ export default class CameraEnhancer implements ImageSource {
      * Set the line width for drawing the view decorator.
      * @see [[setViewDecorator]]
      */
-    setViewDecoratorLineWidth(type: string, width: number): void;
+    setViewDecoratorLineWidth(type: "rectangle" | "focus" | "crossline" | "crosshair", width: number): void;
     /**
      * Set the stroke style for drawing the view decorator.
      * @see [[setViewDecorator]]
      */
-    setViewDecoratorStrokeStyle(type: string, style: string): void;
+    setViewDecoratorStrokeStyle(type: "rectangle" | "focus" | "crossline" | "crosshair", style: string): void;
     /**
      * Set the fill style for drawing the view decorator.
      * @see [[setViewDecorator]]
      */
-    setViewDecoratorFillStyle(type: string, style: string): void;
+    setViewDecoratorFillStyle(type: "rectangle" | "focus", style: string): void;
     /**
      * Set the fill style for drawing the mask for the view decorator.
      * @see [[setViewDecorator]]
      */
-    setViewDecoratorMaskFillStyle(type: string, style: string): void;
+    setViewDecoratorMaskFillStyle(type: "rectangle" | "focus", style: string): void;
     /**
      * Might be called when:
      * 1. 'setViewDecoratorLineWidth', 'setViewDecoratorStrokeStyle', 'setViewDecoratorFillStyle' or 'setViewDecoratorMaskFillStyle' is called;
@@ -658,7 +675,7 @@ export default class CameraEnhancer implements ImageSource {
      * ```
      * @see [[off]]
      */
-    on(eventName: string, listener: Function): void;
+    on(eventName: "cameraOpen" | "cameraClose" | "cameraChange" | "resolutionChange" | "played" | "singleFrameAcquired" | "frameAddedToBuffer", listener: Function): void;
     /**
      * Remove the specified event handler.
      * ```js
@@ -672,7 +689,7 @@ export default class CameraEnhancer implements ImageSource {
      * ```
      * @see [[on]]
      */
-    off(eventName: string, listener: Function): void;
+    off(eventName: "cameraOpen" | "cameraClose" | "cameraChange" | "resolutionChange" | "played" | "singleFrameAcquired" | "frameAddedToBuffer", listener: Function): void;
     /**
      * Remove event handlers of specified type.
      * @param eventName
@@ -798,17 +815,44 @@ export default class CameraEnhancer implements ImageSource {
      */
     setExposureCompensation(value: number): Promise<void>;
     getExposureCompensation(): number;
+    private _setHardwareScale;
+    private _getHardwareScale;
+    private _setSoftwareScale;
+    private _getSoftwareScale;
+    private _setScaleCenter;
+    private _resetScaleCenter;
+    private _isVideoCenter;
+    /**
+     *
+     * @param value
+     * @deprecated
+     */
+    private _setZoom;
     /**
      * Adjusts the zoom ratio.
      * Only available when the camera is open.
      * ```js
-     * await enhancer.setZoom(400);
+     * await enhancer.setZoom({factor: 2});
      * ```
      * @see [[getCapabilities]]
      * @category Camera Settings
      */
-    setZoom(value: number): Promise<void>;
+    setZoom(settings: number | {
+        factor: number;
+        centerPoint?: {
+            x: string;
+            y: string;
+        };
+    }): Promise<void>;
+    /**
+     * @returns
+     * @deprecated
+     */
     getZoom(): number;
+    getZoomSettings(): {
+        factor: number;
+    };
+    resetZoom(): Promise<void>;
     /**
      * Adjusts the frame rate. Only available in Chrome, Edge and Safari.
      * Only available when the camera is open.
@@ -830,6 +874,7 @@ export default class CameraEnhancer implements ImageSource {
      * @category Camera Settings
      */
     getFrameRate(): number;
+    private _setFocus;
     /**
      * Adjusts the focus distance. Only available in Chrome and Edge.
      * Only available when the camera is open.
@@ -840,7 +885,22 @@ export default class CameraEnhancer implements ImageSource {
      * @see [[getFocus]],[[getCapabilities]]
      * @category Camera Settings
      */
-    setFocus(mode: string, distance?: number): Promise<void>;
+    setFocus(settings: string | {
+        mode: string;
+    } | {
+        mode: "manual";
+        distance: number;
+    } | {
+        mode: "manual";
+        area: {
+            centerPoint: {
+                x: string;
+                y: string;
+            };
+            width?: string;
+            height?: string;
+        };
+    }, distance?: number): Promise<void>;
     /**
      * Get the focus distance.
      * Only available when the camera is open.
@@ -849,12 +909,16 @@ export default class CameraEnhancer implements ImageSource {
      * ```
      * @see [[setFocus]],[[getCapabilities]]
      * @category Camera Settings
+     * @deprecated
      */
     getFocus(): Object;
-    private _setHardwareScale;
-    private _getHardwareScale;
-    private _setSoftwareScale;
-    private _getSoftwareScale;
+    getFocusSettings(): Object;
+    private _setFocusAndGetContract;
+    private _doFocusDetail;
+    private _setLocalFocus;
+    enableTapToFocus(): Promise<void>;
+    disableTapToFocus(): void;
+    isTapToFocusEnabled(): boolean;
     /**
      * Might be called when:
      * 1. container resizes;
@@ -901,6 +965,10 @@ export default class CameraEnhancer implements ImageSource {
         region?: Region;
         pixelFormat?: PixelFormat;
         scale?: number;
+        scaleCenter?: {
+            x: string;
+            y: string;
+        };
     }): DCEFrame;
     /**
      * @private
@@ -927,6 +995,7 @@ export default class CameraEnhancer implements ImageSource {
      * @see [[maxNumberOfFramesInBuffer]],[[numberOfFramesInBuffer]]
      */
     getFrameFromBuffer(index?: number): DCEFrame;
+    clearFrameBuffer(): void;
     /**
      * Force lose webgl context.
      * @private
@@ -944,6 +1013,7 @@ export default class CameraEnhancer implements ImageSource {
      */
     private _updateDrawingLayersSize;
     _createDrawingLayer(drawingLayerId?: number): import("./drawinglayer").default;
+    deleteDrawingLayer(drawingLayerId: number): void;
     createDrawingLayer(): import("./drawinglayer").default;
     getDrawingLayer(drawingLayerId: number): import("./drawinglayer").default;
     getDrawingLayers(): import("./drawinglayer").default[];
@@ -953,6 +1023,10 @@ export default class CameraEnhancer implements ImageSource {
     getDrawingStyles(): import("..").DrawingStyle[];
     updateDrawingStyle(styleId: number, styleDefinition: any): void;
     clearDrawingLayers(): void;
+    showTip(x: number, y: number, width: number, initialMessage?: string, duration?: number, autoShowSuggestedTip?: boolean): void;
+    hideTip(): void;
+    updateTipMessage(message: string): void;
+    suggestTip(occasion: string, message: string): void;
     private _controler;
     _createControler(): Controler;
     _destroyControler(): void;

@@ -19,8 +19,10 @@ export declare class DrawingItem {
     constructor(fabricObject: fabric.Object, styleId?: number);
     private _setFabricObject;
     _getFabricObject(): fabric.Object;
-    on(eventName: string, listener: (event: DrawingItemEvent) => void): void;
-    off(eventName: string, listener: (event: DrawingItemEvent) => void): void;
+    _on(eventName: string, listener: (event: DrawingItemEvent) => void): void;
+    on(eventName: "mousedown" | "mouseup" | "dblclick" | "mouseover" | "mouseout", listener: (event: DrawingItemEvent) => void): void;
+    _off(eventName: string, listener: (event: DrawingItemEvent) => void): void;
+    off(eventName: "mousedown" | "mouseup" | "dblclick" | "mouseover" | "mouseout", listener: (event: DrawingItemEvent) => void): void;
     _setEditable(editable: boolean): void;
     hasNote(name: string): boolean;
     addNote(note: Note, replace?: boolean): void;
