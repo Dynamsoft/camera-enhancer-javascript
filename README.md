@@ -53,7 +53,7 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
   <script src="https://unpkg.com/dynamsoft-camera-enhancer/dist/dce.js"></script>
   ```
 
-> In some rare cases, you might not be able to access the CDN. If this happens, you can use [https://download2.dynamsoft.com/dce/dynamsoft-camera-enhancer-js/dynamsoft-camera-enhancer-js-3.2.0/dist/dce.js](https://download2.dynamsoft.com/dce/dynamsoft-camera-enhancer-js/dynamsoft-camera-enhancer-js-3.2.0/dist/dce.js)
+> In some rare cases, you might not be able to access the CDN. If this happens, you can use [https://download2.dynamsoft.com/dce/dynamsoft-camera-enhancer-js/dynamsoft-camera-enhancer-js-3.3.0/dist/dce.js](https://download2.dynamsoft.com/dce/dynamsoft-camera-enhancer-js/dynamsoft-camera-enhancer-js-3.3.0/dist/dce.js)
 
 #### Host the SDK yourself
 
@@ -80,7 +80,7 @@ The following shows a few ways to download the SDK.
 Depending on how you downloaded the SDK and where you put it. You can typically include it like this:
 
 ```html
-<script src="/dce-js-3.2.0/dist/dce.js"></script>
+<script src="/dynamsoft-camera-enhancer-js-3.3.0/dist/dce.js"></script>
 ```
 
 or
@@ -89,7 +89,7 @@ or
 <script src="/node_modules/dynamsoft-camera-enhancer/dist/dce.js"></script>
 ```
 
-or 
+or
 
 ```typescript
 import { CameraEnhancer } from 'dynamsoft-camera-enhancer';
@@ -128,18 +128,18 @@ As shown in the code snippet below, before opening the video stream, we need to 
 
 The built-in UI of the `CameraEnhancer` object is defined in the file `dist/dce.ui.html` . There are a few ways to customize it:
 
-* Modify the file `dist/dce.ui.html` directly.
+- Modify the file `dist/dce.ui.html` directly.
 
   This option is only possible when you host this file on your own web server instead of using a CDN.
 
-* Copy the file `dist/dce.ui.html` to your project, modify it and use the the API `defaultUIElementURL` to set it as the default UI.
+- Copy the file `dist/dce.ui.html` to your project, modify it and use the the API `defaultUIElementURL` to set it as the default UI.
 
 ```javascript
 // To make sure the following line takes effect, put it before the API `open()` is called.
 Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "THE-URL-TO-THE-FILE";
 ```
 
-* Append the default UI element to your page as shown in [Configure the CameraEnhancer object](#configure-the-cameraenhancer-object), customize it if necessary.
+- Append the default UI element to your page as shown in [Configure the CameraEnhancer object](#configure-the-cameraenhancer-object), customize it if necessary.
 
 ```html
 <!-- Define an element to hold the UI element -->
@@ -158,9 +158,9 @@ Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "THE-URL-TO-THE-FILE";
 </script>
 ```
 
-* Build the UI element into your own web page and specify it with the API `setUIElement(HTMLElement)`.
+- Build the UI element into your own web page and specify it with the API `setUIElement(HTMLElement)`.
 
-  * Embed only the video
+  - Embed only the video
 
   ```html
   <div id="enhancerUIContainer" style="width:100%;height:100%;">
@@ -177,7 +177,7 @@ Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "THE-URL-TO-THE-FILE";
 
   > The video element will be created and appended to the DIV element with the class `dce-video-container`, make sure the class name is the same. Besides, the CSS property `position` of the DIV element must be either `relative`, `absolute`, `fixed`, or `sticky`.
 
-  * Add the camera list and resolution list. If the class names for these lists match the default ones,  `dce-sel-camera` and `dce-sel-resolution` , the SDK will automatically populate the lists and handle the camera/resolution switching.
+  - Add the camera list and resolution list. If the class names for these lists match the default ones,  `dce-sel-camera` and `dce-sel-resolution` , the SDK will automatically populate the lists and handle the camera/resolution switching.
 
   ```html
   <select class="dce-sel-camera"></select>
@@ -205,13 +205,13 @@ Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "THE-URL-TO-THE-FILE";
 
 Once you have downloaded the SDK, you can locate the "dist" directory and copy it to your project (usually as part of your website / web application). The following shows some of the files in this directory:
 
-* `dce.js` // The main SDK file
-* `dce.mjs` // For using the SDK as a module (`<script type="module">`)
-* `dce.ui.html` // Defines the default enhancer UI
+- `dce.js` // The main SDK file
+- `dce.mjs` // For using the SDK as a module (`<script type="module">`)
+- `dce.ui.html` // Defines the default enhancer UI
 
 ### Step Two: Configure the Server
 
-* Enable HTTPS
+- Enable HTTPS
 
   To use the SDK, you must access your website / web application via a secure HTTPS connection. This is due to browser security restrictions which only grant camera video streaming access to a [secure context](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts).
 
@@ -229,7 +229,9 @@ Now that the SDK is hosted on your server, you can include it accordingly.
 
 ### Can I open the web page directly from the hard drive?
 
-Yes, for simple testing purposes, it's perfectly fine to open the file directly from the hard drive. However, you might encounter some issues in doing so (like unable to access the camera, etc.). The recommendation is to deploy this page to your web server and run it over **HTTPS**. If you don't have a ready-to-use web server but have a package manager like *npm* or *yarn*, you can set up a simple HTTP server in minutes. Check out [`http-server` on npm](https://www.npmjs.com/package/http-server) or [yarn](https://yarnpkg.com/package/http-server).
+Yes, for simple testing purposes, it's ok to open the file directly from the hard drive (`file://`). However, you might encounter some issues in doing so (like unable to access the camera, etc.). The recommendation is to deploy this page to your web server and run it over **HTTPS** or use "http://localhost" during development.
+
+If you don't have a ready-to-use web server but have a package manager like *npm* or *yarn*, you can set up a simple HTTP server in minutes. Check out [`http-server` on npm](https://www.npmjs.com/package/http-server) or [yarn](https://yarnpkg.com/package/http-server).
 
 ### Why can't I use my camera?
 
@@ -237,7 +239,7 @@ If you open the web page as `http://` , the camera may not work and you see the 
 
 > [Deprecation] getUserMedia() no longer works on insecure origins. To use this feature, you should consider switching your application to a secure origin, such as HTTPS. See [https://goo.gl/rStTGz](https://goo.gl/rStTGz) for more details.
 
-* In Safari 12 the equivalent error is:
+- In Safari 12 the equivalent error is:
 
 > Trying to call getUserMedia from an insecure document.
 
@@ -245,10 +247,10 @@ You get this error because the API [getUserMedia](https://developer.mozilla.org/
 
 To make sure your web application can access the camera, please configure your web server to support HTTPS. The following links may help.
 
-* NGINX: [Configuring HTTPS servers](https://nginx.org/en/docs/http/configuring_https_servers.html)
-* IIS: [Create a Self Signed Certificate in IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/)
-* Tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
-* Node.js: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
+- NGINX: [Configuring HTTPS servers](https://nginx.org/en/docs/http/configuring_https_servers.html)
+- IIS: [Create a Self Signed Certificate in IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/)
+- Tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
+- Node.js: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
 
 ## API Documentation
 
