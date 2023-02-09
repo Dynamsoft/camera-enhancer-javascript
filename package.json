@@ -1,6 +1,6 @@
 {
 	"name": "dynamsoft-camera-enhancer",
-  "version": "3.2.0",
+  "version": "3.3.0",
 	"description": "Allow your website to easily control cameras on desktop and mobile devices.",
 	"private": false,
 	"homepage": "https://www.dynamsoft.com/camera-enhancer/docs/programming/javascript/?ver=latest",
@@ -65,20 +65,21 @@
 		"@rollup/plugin-node-resolve": "^13.3.0",
 		"@rollup/plugin-replace": "3.0.0",
 		"@rollup/plugin-typescript": "8.3.0",
-		"@types/node": "16.11.2",
-		"detect-browser-node-ssr": "^2.0.0",
 		"@scannerproxy/browser-info": "^1.0.7",
 		"@scannerproxy/curscript-path": "^1.0.3",
-		"inline-css": "^4.0.1",
-		"markdown-styles": "^3.2.0",
+		"@types/node": "16.11.2",
+		"detect-browser-node-ssr": "^2.0.0",
+		"highlight.js": "^9.15.6",
 		"rollup": "^2.58.0",
 		"rollup-plugin-terser": "7.0.2",
+		"showdown": "^1.9.0",
 		"tslib": "2.3.1",
 		"typedoc": "0.22.6",
 		"typedoc-plugin-missing-exports": "0.22.3",
 		"typescript": "4.3.5"
 	},
 	"dependencies": {
-		"dm-fabric": "^5.1.17"
+		"dm-fabric": "^5.1.17",
+		"mutable-promise": "^1.1.13"
 	}
 }

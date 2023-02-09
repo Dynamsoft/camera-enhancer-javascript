@@ -36,7 +36,7 @@ export default class CameraEnhancer implements ImageSource {
     private static _engineResourcePath?;
     /**
      * ```js
-     * Dynamsoft.DCE.CameraEnhancer.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.2.0/dist/";
+     * Dynamsoft.DCE.CameraEnhancer.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer/dist/";
      * ```
     */
     static set engineResourcePath(value: string);
@@ -64,7 +64,7 @@ export default class CameraEnhancer implements ImageSource {
     /**
      * The url of the default UI.
      * ```js
-     * Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.2.0/dist/dce.ui.html";
+     * Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer/dist/dce.ui.html";
      * let pEnhancer = null;
      * (async()=>{
      *     let enhancer = await (pEnhancer = pEnhancer || Dynamsoft.DCE.CameraEnhancer.createInstance());
@@ -175,7 +175,6 @@ export default class CameraEnhancer implements ImageSource {
     private _focusParameters;
     private _tapFocusEnabled;
     private _focusSupported;
-    private _focusArea;
     private _tapDoFocus;
     private _touchMoved;
     private _touchMoveEvent;
@@ -208,7 +207,7 @@ export default class CameraEnhancer implements ImageSource {
     private iPlayRound;
     private promisePlay;
     /** @ignore */
-    _ifSaveLastUsedCamera: boolean;
+    private _ifSaveLastUsedCamera;
     /**
      * Whether to record camera you selected after reload the page.
      */
@@ -709,7 +708,7 @@ export default class CameraEnhancer implements ImageSource {
      * @param MediaStreamConstraints
      * @category Camera Settings
      */
-    updateVideoSettings(MediaStreamConstraints: any): Promise<PlayCallbackInfo | void>;
+    updateVideoSettings(mediaStreamConstraints: any): Promise<PlayCallbackInfo | void>;
     /**
      * Check if the camera is open.
      * @category Open and Close
@@ -961,6 +960,11 @@ export default class CameraEnhancer implements ImageSource {
     private _readCvsData;
     private _transformPixelFormat;
     private _getImageData;
+    /**
+     * Force lose webgl context.
+     * @private
+     */
+    private forceLoseContext;
     _getVideoData(bufferContainer?: Uint8Array, options?: {
         region?: Region;
         pixelFormat?: PixelFormat;
@@ -996,11 +1000,6 @@ export default class CameraEnhancer implements ImageSource {
      */
     getFrameFromBuffer(index?: number): DCEFrame;
     clearFrameBuffer(): void;
-    /**
-     * Force lose webgl context.
-     * @private
-     */
-    private forceLoseContext;
     private _createDrawingLayerBaseCvs;
     /**
      * Might be called when:
@@ -1024,6 +1023,7 @@ export default class CameraEnhancer implements ImageSource {
     updateDrawingStyle(styleId: number, styleDefinition: any): void;
     clearDrawingLayers(): void;
     showTip(x: number, y: number, width: number, initialMessage?: string, duration?: number, autoShowSuggestedTip?: boolean): void;
+    private _hideTip;
     hideTip(): void;
     updateTipMessage(message: string): void;
     suggestTip(occasion: string, message: string): void;
