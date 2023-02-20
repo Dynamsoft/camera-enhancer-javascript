@@ -1,6 +1,6 @@
 {
 	"name": "dynamsoft-camera-enhancer",
-  "version": "3.3.0",
+  "version": "3.3.1",
 	"description": "Allow your website to easily control cameras on desktop and mobile devices.",
 	"private": false,
 	"homepage": "https://www.dynamsoft.com/camera-enhancer/docs/programming/javascript/?ver=latest",
