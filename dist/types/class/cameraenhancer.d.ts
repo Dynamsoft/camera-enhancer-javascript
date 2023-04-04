@@ -1039,6 +1039,27 @@ export default class CameraEnhancer implements ImageSource {
     private _hideOriginalImage;
     hideOriginalImage(): Promise<void>;
     /**
+     * Transform the coordinates from related to the video to related to the viewport and document.
+     * @param coord
+     * @returns
+     * @private
+     */
+    private transformCoord;
+    convertToPageCoordinates(point: {
+        x: number;
+        y: number;
+    }): {
+        x: number;
+        y: number;
+    };
+    convertToClientCoordinates(point: {
+        x: number;
+        y: number;
+    }): {
+        x: number;
+        y: number;
+    };
+    /**
      * Releases all resources used by the 'CameraEnhancer' instance.
      * @param removeUIElement When true, remove the UIElement from DOM.
      */
