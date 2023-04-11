@@ -512,9 +512,11 @@ export default class CameraEnhancer implements ImageSource {
     set refreshInterval(value: number);
     get refreshInterval(): number;
     private _frameLoopTimeoutId2;
+    private _windowWidth;
     private _resizeTimeoutId;
     private _updateLayersTimeout;
     private _updateLayers;
+    private _windowResizeListener;
     private _resizeObserver;
     /**
      * Create a `CameraEnhancer` object.
