@@ -334,11 +334,6 @@ export default class CameraEnhancer implements ImageSource {
      * @see [[setScanRegion]]
      */
     getScanRegion(): Region;
-    /**
-     * Decide What size the layers should be created.
-     * When returned 'null', it means something gets wrong.
-     * @returns
-     */
     private _calculateCvsSize;
     /**
      * Add a canvas of the same size as the scan area directly above the scan area.
@@ -537,6 +532,7 @@ export default class CameraEnhancer implements ImageSource {
      */
     static createInstance(config?: any): Promise<CameraEnhancer>;
     private static playVideo;
+    private static findBestRearCameraInIOS;
     private static findBestRearCamera;
     /**
      *
@@ -564,6 +560,7 @@ export default class CameraEnhancer implements ImageSource {
      * @category Pause and Resume
      */
     pause(): void;
+    isPaused(): boolean;
     /** @ignore */
     _bindUI(): void;
     /** @ignore */
@@ -715,7 +712,7 @@ export default class CameraEnhancer implements ImageSource {
      * @param MediaStreamConstraints
      * @category Camera Settings
      */
-    updateVideoSettings(mediaStreamConstraints: any): Promise<PlayCallbackInfo | void>;
+    updateVideoSettings(mediaStreamConstraints: MediaStreamConstraints): Promise<PlayCallbackInfo | void>;
     /**
      * Check if the camera is open.
      * @category Open and Close

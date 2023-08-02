@@ -47,7 +47,7 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
   <script src="https://unpkg.com/dynamsoft-camera-enhancer/dist/dce.js"></script>
   ```
 
-> In some rare cases, you might not be able to access the CDN. If this happens, you can use [https://download2.dynamsoft.com/dce/dynamsoft-camera-enhancer-js/dynamsoft-camera-enhancer-js-3.3.4/dist/dce.js](https://download2.dynamsoft.com/dce/dynamsoft-camera-enhancer-js/dynamsoft-camera-enhancer-js-3.3.4/dist/dce.js)
+> In some rare cases, you might not be able to access the CDN. If this happens, you can use [https://download2.dynamsoft.com/dce/dynamsoft-camera-enhancer-js/dynamsoft-camera-enhancer-js-3.3.5/dist/dce.js](https://download2.dynamsoft.com/dce/dynamsoft-camera-enhancer-js/dynamsoft-camera-enhancer-js-3.3.5/dist/dce.js)
 
 #### Host the SDK yourself
 
@@ -74,7 +74,7 @@ The following shows a few ways to download the SDK.
 Depending on how you downloaded the SDK and where you put it. You can typically include it like this:
 
 ```html
-<script src="/dynamsoft-camera-enhancer-js-3.3.4/dist/dce.js"></script>
+<script src="/dynamsoft-camera-enhancer-js-3.3.5/dist/dce.js"></script>
 ```
 
 or
@@ -191,7 +191,7 @@ Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "THE-URL-TO-THE-FILE";
   </select>
   ```
 
-  > Generally, you need to provide a resolution that the camera supports. However, in case a camera does not support the specified resolution, it usually uses the cloest supported resolution. As a result, the selected resolution may not be the actual resolution. In this case, add an option with the class name `dce-opt-gotResolution` (as shown above) and the SDK will then use it to show the **actual resolution**.
+  > Generally, you need to provide a resolution that the camera supports. However, in case a camera does not support the specified resolution, it usually uses the closest supported resolution. As a result, the selected resolution may not be the actual resolution. In this case, add an option with the class name `dce-opt-gotResolution` (as shown above) and the SDK will then use it to show the **actual resolution**.
 
 ## Hosting the SDK
 
