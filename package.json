@@ -1,6 +1,6 @@
 {
 	"name": "dynamsoft-camera-enhancer",
-  "version": "3.3.5",
+  "version": "4.0.0",
 	"description": "Allow your website to easily control cameras on desktop and mobile devices.",
 	"private": false,
 	"homepage": "https://www.dynamsoft.com/camera-enhancer/docs/programming/javascript/?ver=latest",
@@ -60,32 +60,32 @@
 		"/dist/*.html",
 		"/dist/*.wasm",
 		"/dist/**/*.d.ts",
-		"/Api Reference.url",
-		"/legal.txt",
+		"/API Reference.url",
+		"/LEGAL.txt",
 		"/samples.url"
 	],
 	"devDependencies": {
-		"@babel/core": "7.15.8",
-		"@babel/preset-env": "7.15.8",
-		"@rollup/plugin-babel": "5.3.0",
+		"@dynamsoft/camera-manager": "^1.1.2",
+		"@dynamsoft/tools": "^0.0.1",
 		"@rollup/plugin-node-resolve": "^13.3.0",
-		"@rollup/plugin-replace": "3.0.0",
-		"@rollup/plugin-typescript": "8.3.0",
-		"@scannerproxy/browser-info": "^1.0.7",
-		"@scannerproxy/curscript-path": "^1.0.3",
-		"@types/node": "16.11.2",
-		"detect-browser-node-ssr": "^2.0.0",
+		"@rollup/plugin-replace": "^5.0.2",
+		"@rollup/plugin-terser": "^0.4.3",
+		"@rollup/plugin-typescript": "^11.1.2",
+		"@scannerproxy/browser-info": "^2.0.8",
+		"@scannerproxy/curscript-path": "^2.0.1",
+		"@types/node": "^20.4.2",
+		"eruda": "^3.0.1",
 		"highlight.js": "^9.15.6",
-		"rollup": "^2.58.0",
-		"rollup-plugin-terser": "7.0.2",
+		"mutable-promise": "^1.1.13",
+		"rollup": "^2.79.1",
 		"showdown": "^1.9.0",
-		"tslib": "2.3.1",
-		"typedoc": "0.22.6",
-		"typedoc-plugin-missing-exports": "0.22.3",
-		"typescript": "4.3.5"
+		"tslib": "^2.5.0",
+		"typescript": "^4.9.5"
 	},
 	"dependencies": {
 		"dm-fabric": "^5.1.17",
-		"mutable-promise": "^1.1.13"
+		"dm-howler": "^2.2.4",
+		"dynamsoft-capture-vision-router": "^2.0.11",
+		"dynamsoft-core": "^3.0.10"
 	}
 }
