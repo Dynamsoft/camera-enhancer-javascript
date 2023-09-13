@@ -124,7 +124,7 @@ export default class CameraEnhancer implements ImageSource {
      * })();
      * ```
      */
-    get singleFrameMode(): boolean;
+    get singleFrameMode(): boolean | "image" | "camera";
     /**
      * A mode not use video, get a frame from OS camera instead.
      * ```js
@@ -136,13 +136,13 @@ export default class CameraEnhancer implements ImageSource {
      * })();
      * ```
      */
-    set singleFrameMode(value: boolean);
+    set singleFrameMode(value: boolean | "image" | "camera");
     private _cvsSingleFrameMode;
     private _originalImageData;
     private _cvsOriginalImage;
     private _imgWidth;
     private _imgHeight;
-    private _singleFrameModeIpt;
+    private _singleFrameInputContainer;
     private _clickIptSingleFrameMode;
     /** @ignore */
     private styleEls;
@@ -534,6 +534,8 @@ export default class CameraEnhancer implements ImageSource {
     private static playVideo;
     private static findBestRearCameraInIOS;
     private static findBestRearCamera;
+    private constructor();
+    _isSingleFrameModeEnabled(): boolean;
     /**
      *
      * @param deviceId
