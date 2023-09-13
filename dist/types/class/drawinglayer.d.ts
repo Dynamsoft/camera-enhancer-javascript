@@ -1,30 +1,20 @@
 import { fabric } from "dm-fabric";
 import { DrawingItem } from "./drawingItem";
-import { EnumDrawingItemState, EnumDrawingItemMediaType } from "../enum";
+import { DrawingStyle } from "../interface/drawingstyle";
 export default class DrawingLayer {
-    static DDN_LAYER_ID: number;
-    static DBR_LAYER_ID: number;
-    static DLR_LAYER_ID: number;
-    static USER_DEFINED_LAYER_BASE_ID: number;
     fabricCanvas: fabric.Canvas;
     private id;
-    get width(): number;
-    get height(): number;
-    mapMediaType_Style: Map<string, any>;
-    mapType_StateAndStyleId: Map<string, any>;
+    private _mapDrawingStyles;
+    mapMediaType_Style: Map<any, any>;
     private mode;
-    onSelectionChanged: (selectedDrawingItems: Array<DrawingItem>, deselectedDrawingItems: Array<DrawingItem>) => void;
+    onSelectionChange: (selectedDrawingItems: Array<DrawingItem>, deselectedDrawingItems: Array<DrawingItem>) => void;
     private _arrDrwaingItem;
     private _arrFabricObject;
     private _visible;
     _manager: any;
-    /**
-     * @ignore
-     */
-    set _allowMultiSelect(value: boolean);
-    get _allowMultiSelect(): boolean;
-    constructor(canvas: HTMLCanvasElement, id: number, options?: Object);
+    constructor(canvas: HTMLCanvasElement, id: number, mapDrawingStyles: Map<number, DrawingStyle>, options?: Object);
     getId(): number;
+    private _getDrawingStyle;
     setVisible(visible: boolean): void;
     isVisible(): boolean;
     private _getItemCurrentStyleId;
@@ -53,36 +43,18 @@ export default class DrawingLayer {
      * Drawing items in drawing layer with higher id are always above those in drawing layer with lower id.
      * In a same drawing layer, the later added is above the previous added.
      * @param drawingItem
-     * @ignore
      */
     addDrawingItem(drawingItem: DrawingItem): void;
     addDrawingItems(drawingItems: Array<DrawingItem>): void;
-    /**
-     *
-     * @param drawingItem
-     * @returns
-     * @ignore
-     */
     removeDrawingItem(drawingItem: DrawingItem): void;
     removeDrawingItems(drawingItems: Array<DrawingItem>): void;
     setDrawingItems(drawingItems: Array<DrawingItem>): void;
-    getDrawingItems(filter?: (item: DrawingItem) => boolean): Array<DrawingItem>;
+    getDrawingItems(filter?: ((item: DrawingItem) => boolean)): Array<DrawingItem>;
     getSelectedDrawingItems(): Array<DrawingItem>;
     hasDrawingItem(drawingItem: DrawingItem): boolean;
     clearDrawingItems(): void;
-    _setDefaultStyle(drawingStyleId: number, mediaTypes?: Array<string>, styleSelectors?: Array<string>): void;
-    setDefaultStyle(drawingStyleId: number, state?: EnumDrawingItemState, mediaType?: EnumDrawingItemMediaType): void;
-    /**
-     *
-     * @param newMode
-     * @ignore
-     */
+    setDrawingStyle(drawingStyleId: number, mediaType?: string, styleSelector?: string): void;
     setMode(newMode: string): void;
-    /**
-     *
-     * @returns
-     * @ignore
-     */
     getMode(): string;
     _setDimensions(dimensions: {
         width: number | string;
