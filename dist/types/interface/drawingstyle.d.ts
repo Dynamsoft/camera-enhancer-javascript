@@ -7,4 +7,4 @@ export interface DrawingStyle {
     fontFamily?: string;
     fontSize?: number;
 }
-//# sourceMappingURL=drawingstyle.d.ts.map
+//# sourceMappingURL=DrawingStyle.d.ts.map
