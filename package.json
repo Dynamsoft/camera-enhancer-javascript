@@ -1,6 +1,6 @@
 {
 	"name": "dynamsoft-camera-enhancer",
-  "version": "3.3.6",
+	"version": "3.3.7",
 	"description": "Allow your website to easily control cameras on desktop and mobile devices.",
 	"private": false,
 	"homepage": "https://www.dynamsoft.com/camera-enhancer/docs/programming/javascript/?ver=latest",
@@ -19,7 +19,8 @@
 	"sideEffects": false,
 	"types": "./dist/types/index.d.ts",
 	"publishConfig": {
-		"registry": "https://registry.npmjs.org/"
+		"registry": "https://registry.npmjs.org/",
+		"tag": "v3-latest"
 	},
 	"author": {
 		"name": "Dynamsoft",
@@ -47,7 +48,11 @@
 		"build-dev": "python ./build-dev.py",
 		"build": "python ./build.py",
 		"build:doc": "typedoc",
-		"update:readme": "node ./updateReadme.js"
+		"update:readme": "updateReadme --package=dynamsoft-camera-enhancer --version=auto",
+		"update:prod": "updatePackage --package=dynamsoft-camera-enhancer --version=auto --env=production --tag=v3-latest",
+		"update:beta": "updatePackage --package=dynamsoft-camera-enhancer --version=auto --env=beta --tag=beta",
+		"update:iv": "updatePackage --package=dynamsoft-camera-enhancer --version=auto --env=internalVersion --tag=iv",
+		"update:dev": "updatePackage --package=dynamsoft-camera-enhancer --version=auto --env=development --tag=latest"
 	},
 	"license": "SEE LICENSE IN LICENSE",
 	"repository": {
@@ -67,6 +72,7 @@
 	"devDependencies": {
 		"@babel/core": "7.15.8",
 		"@babel/preset-env": "7.15.8",
+		"@dynamsoft/rd2-scripts": "^0.0.32",
 		"@rollup/plugin-babel": "5.3.0",
 		"@rollup/plugin-node-resolve": "^13.3.0",
 		"@rollup/plugin-replace": "3.0.0",
