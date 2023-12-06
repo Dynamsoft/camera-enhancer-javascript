@@ -47,7 +47,7 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
   <script src="https://unpkg.com/dynamsoft-camera-enhancer@3/dist/dce.js"></script>
   ```
 
-> In some rare cases, you might not be able to access the CDN. If this happens, you can use [https://download2.dynamsoft.com/dce/dynamsoft-camera-enhancer-js/dynamsoft-camera-enhancer-js-3.3.8/dist/dce.js](https://download2.dynamsoft.com/dce/dynamsoft-camera-enhancer-js/dynamsoft-camera-enhancer-js-3.3.8/dist/dce.js)
+> In some rare cases, you might not be able to access the CDN. If this happens, you can use [https://download2.dynamsoft.com/dce/dynamsoft-camera-enhancer-js/dynamsoft-camera-enhancer-js-3.3.9/dist/dce.js](https://download2.dynamsoft.com/dce/dynamsoft-camera-enhancer-js/dynamsoft-camera-enhancer-js-3.3.9/dist/dce.js)
 
 #### Host the SDK yourself
 
@@ -57,7 +57,7 @@ The following shows a few ways to download the SDK.
 
 - From the website
 
-  [Download the JavaScript Package](https://www.dynamsoft.com/camera-enhancer/downloads/1000021-confirmation/?utm_source=github)
+  [Download the JavaScript Package](https://www.dynamsoft.com/camera-enhancer/downloads/1000021-confirmation/?utm_source=npm)
 
 - yarn
 
@@ -74,7 +74,7 @@ The following shows a few ways to download the SDK.
 Depending on how you downloaded the SDK and where you put it. You can typically include it like this:
 
 ```html
-<script src="/dynamsoft-camera-enhancer-js-3.3.8/dist/dce.js"></script>
+<script src="/dynamsoft-camera-enhancer-js-3.3.9/dist/dce.js"></script>
 ```
 
 or
@@ -186,8 +186,8 @@ Dynamsoft.DCE.CameraEnhancer.defaultUIElementURL = "THE-URL-TO-THE-FILE";
   ```html
   <select class="dce-sel-resolution">
       <option class="dce-opt-gotResolution" value="got"></option>
-      <option data-width="1280" data-height="720">1280x720</option>
-      <option data-width="1920" data-height="1080">1920x1080</option>
+      <option data-width="1280" data-height="720">ask 1280x720</option>
+      <option data-width="1920" data-height="1080">ask 1920x1080</option>
   </select>
   ```
 

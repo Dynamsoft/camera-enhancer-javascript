@@ -202,6 +202,7 @@ export default class CameraEnhancer implements ImageSource {
      * Set src to video element to play static video.
      */
     videoSrc: string | MediaStream | MediaSource | Blob;
+    cameraOpenTimeout: number;
     /** @ignore */
     videoSettings: MediaStreamConstraints;
     private iPlayRound;
