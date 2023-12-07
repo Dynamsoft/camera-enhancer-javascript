@@ -57,7 +57,7 @@ The following shows a few ways to download the SDK.
 
 - From the website
 
-  [Download the JavaScript Package](https://www.dynamsoft.com/camera-enhancer/downloads/1000021-confirmation/?utm_source=npm)
+  [Download the JavaScript Package](https://www.dynamsoft.com/camera-enhancer/downloads/1000021-confirmation/?utm_source=github)
 
 - yarn
 
