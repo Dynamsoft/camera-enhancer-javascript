@@ -44,7 +44,7 @@ export declare abstract class View {
      * @returns
      * @ignore
      */
-    _createDrawingLayer(width?: number, height?: number, objectFit?: string, drawingLayerId?: number): DrawingLayer;
+    _createDrawingLayer(drawingLayerId: number, width?: number, height?: number, objectFit?: string): DrawingLayer;
     createDrawingLayer(): DrawingLayer;
     protected deleteDrawingLayer(drawingLayerId: number): void;
     deleteUserDefinedDrawingLayer(id: number): void;

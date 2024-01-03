@@ -1,4 +1,4 @@
-import { Polygon, Quadrilateral } from "dynamsoft-core";
+import { Polygon, Quadrilateral } from "@dynamsoft/dynamsoft-core";
 import { DT_Polygon } from "./polygon";
 export declare class DT_Quad extends DT_Polygon {
     #private;

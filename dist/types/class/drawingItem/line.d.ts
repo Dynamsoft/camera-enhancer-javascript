@@ -1,5 +1,5 @@
 import { DT_Polygon } from "./polygon";
-import { LineSegment, Polygon } from "dynamsoft-core";
+import { LineSegment, Polygon } from "@dynamsoft/dynamsoft-core";
 export declare class DT_Line extends DT_Polygon {
     #private;
     constructor(line: LineSegment, drawingStyleId?: number);

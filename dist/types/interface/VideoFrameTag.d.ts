@@ -1,4 +1,4 @@
-import { ImageTag, DSRect } from "dynamsoft-core";
+import { ImageTag, DSRect } from "@dynamsoft/dynamsoft-core";
 export interface VideoFrameTag extends ImageTag {
     isCropped: boolean;
     cropRegion: DSRect;

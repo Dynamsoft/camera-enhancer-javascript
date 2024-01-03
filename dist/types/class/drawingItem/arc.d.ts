@@ -1,4 +1,4 @@
-import { Arc } from "dynamsoft-core";
+import { Arc } from "@dynamsoft/dynamsoft-core";
 import { DrawingItem } from "./drawingitem";
 export declare class DT_Arc extends DrawingItem {
     #private;

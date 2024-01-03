@@ -1,4 +1,4 @@
-import { DSImageData } from "dynamsoft-core";
+import { DSImageData } from "@dynamsoft/dynamsoft-core";
 import { View } from "./View";
 import DrawingLayer from "./drawinglayer";
 export declare class ImageEditorView extends View {
@@ -59,7 +59,7 @@ export declare class ImageEditorView extends View {
      * @returns
      * @ignore
      */
-    _createDrawingLayer(width?: number, height?: number, objectFit?: string, drawingLayerId?: number): DrawingLayer;
+    _createDrawingLayer(drawingLayerId: number, width?: number, height?: number, objectFit?: string): DrawingLayer;
     dispose(): void;
 }
 //# sourceMappingURL=ImageEditorView.d.ts.map

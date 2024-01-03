@@ -16,55 +16,55 @@ export declare const isNonEmptyString: (value: any) => value is string;
  * @param value
  * @returns
  */
-export declare const isArc: (value: any) => value is import("dynamsoft-core").Arc;
+export declare const isArc: (value: any) => value is import("@dynamsoft/dynamsoft-core").Arc;
 /**
  * Judge is the input is a {@link DSImageData} object.
  * @param value
  * @returns
  */
-export declare const isDSImageData: (value: any) => value is import("dynamsoft-core").DSImageData;
+export declare const isDSImageData: (value: any) => value is import("@dynamsoft/dynamsoft-core").DSImageData;
 /**
  * Judge is the input is a {@link DSRect} object.
  * @param value
  * @returns
  */
-export declare const isDSRect: (value: any) => value is import("dynamsoft-core").DSRect;
+export declare const isDSRect: (value: any) => value is import("@dynamsoft/dynamsoft-core").DSRect;
 /**
  * Judge is the input is a {@link ImageTag} object.
  * @param value
  * @returns
  */
-export declare const isImageTag: (value: any) => value is import("dynamsoft-core").ImageTag;
+export declare const isImageTag: (value: any) => value is import("@dynamsoft/dynamsoft-core").ImageTag;
 /**
  * Judge is the input is a {@link LineSegment} object.
  * @param value
  * @returns
  */
-export declare const isLineSegment: (value: any) => value is import("dynamsoft-core").LineSegment;
+export declare const isLineSegment: (value: any) => value is import("@dynamsoft/dynamsoft-core").LineSegment;
 /**
  * Judge is the input is a {@link Polygon} object.
  * @param value
  * @returns
  */
-export declare const isPolygon: (value: any) => value is import("dynamsoft-core").Polygon;
+export declare const isPolygon: (value: any) => value is import("@dynamsoft/dynamsoft-core").Polygon;
 /**
  * Judge is the input is a {@link Point} object.
  * @param value
  * @returns
  */
-export declare const isPoint: (value: any) => value is import("dynamsoft-core").Point;
+export declare const isPoint: (value: any) => value is import("@dynamsoft/dynamsoft-core").Point;
 /**
  * Judge is the input is a {@link Quadrilateral} object.
  * @param value
  * @returns
  */
-export declare const isQuad: (value: any) => value is import("dynamsoft-core").Quadrilateral;
+export declare const isQuad: (value: any) => value is import("@dynamsoft/dynamsoft-core").Quadrilateral;
 /**
  * Judge is the input is a {@link Rect} object.
  * @param value
  * @returns
  */
-export declare const isRect: (value: any) => value is import("dynamsoft-core").Rect;
+export declare const isRect: (value: any) => value is import("@dynamsoft/dynamsoft-core").Rect;
 /**
  * Judge is the input is a {@link DCEFrame} object.
  * @param value

@@ -1,6 +1,6 @@
 import { fabric } from "dm-fabric";
 import { DrawingItem } from "./drawingitem";
-import { Polygon } from "dynamsoft-core";
+import { Polygon } from "@dynamsoft/dynamsoft-core";
 export declare function polygonPositionHandler(dim: any, finalMatrix: any, fabricObject: any): fabric.Point;
 export declare function actionHandler(eventData: any, transform: any, x: any, y: any): boolean;
 export declare function anchorWrapper(anchorIndex: any, fn: any): (eventData: any, transform: any, x: any, y: any) => any;

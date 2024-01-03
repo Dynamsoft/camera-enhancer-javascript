@@ -1,4 +1,4 @@
-import { DSRect, Rect } from "dynamsoft-core";
+import { DSRect, Rect } from "@dynamsoft/dynamsoft-core";
 export declare class ScanRegionConverter {
     /**
      *

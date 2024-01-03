@@ -7,5 +7,4 @@ export * from "./Resolution";
 export * from "./TipConfig";
 export * from "./videodeviceinfo";
 export * from "./VideoFrameTag";
-export * from "./warning";
 //# sourceMappingURL=index.d.ts.map

@@ -1,4 +1,4 @@
-import { DSRect, Rect } from "dynamsoft-core";
+import { DSRect, Rect } from "@dynamsoft/dynamsoft-core";
 import { View } from "./View";
 import { EventHandler } from "../utils";
 export declare class CameraView extends View {
@@ -8,15 +8,7 @@ export declare class CameraView extends View {
      */
     static _onLog: (message: any) => void;
     static uiComponentName: string;
-    private static _hasEngineResourceLoaded;
-    private static _engineResourcePath?;
-    /**
-     * ```js
-     * Dynamsoft.DCE.CameraEnhancer.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer/dist/";
-     * ```
-     */
-    static set engineResourcePath(value: string);
-    static get engineResourcePath(): string;
+    private static get engineResourcePath();
     private static _defaultUIElementURL;
     /**
      * The url of the default UI.
@@ -109,23 +101,15 @@ export declare class CameraView extends View {
     /**
      * @ignore
      */
-    set _singleFrameMode(value: boolean);
-    get _singleFrameMode(): boolean;
+    set _singleFrameMode(value: "disabled" | "camera" | "image");
+    get _singleFrameMode(): "disabled" | "camera" | "image";
     _onSingleFrameAcquired: (canvas: HTMLCanvasElement) => void;
-    private _singleFrameModeIpt;
+    private _singleFrameInputContainer;
     _clickIptSingleFrameMode: () => void;
     /**
      * @ignore
      */
     extraBindings: Array<(el: Element) => void>;
-    /**
-     * @ignore
-     */
-    _ddnUnverifiedResultsStyle: any;
-    /**
-     * @ignore
-     */
-    _styleIdsOfUnverifiedResults: any;
     _capturedResultReceiver: any;
     get disposed(): boolean;
     private constructor();
@@ -236,10 +220,7 @@ export declare class CameraView extends View {
      * @ignore
      */
     updateLayers(): void;
-    /**
-     * @ignore
-     */
-    _clearInnerDrawingItems(): void;
+    clearAllInnerDrawingItems(): void;
     /**
      * Remove added elements. Remove event listeners.
      */
