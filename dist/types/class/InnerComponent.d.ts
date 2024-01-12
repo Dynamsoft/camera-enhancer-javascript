@@ -2,8 +2,8 @@ export declare class InnerComponent extends HTMLElement {
     #private;
     constructor();
     getWrapper(): HTMLDivElement;
-    setContent(content: HTMLElement): void;
-    getContent(): HTMLElement;
-    removeContent(): void;
+    setElement(slot: "content" | "single-frame-input-container" | "drawing-layer", el: HTMLElement): void;
+    getElement(slot: "content" | "single-frame-input-container" | "drawing-layer"): HTMLElement;
+    removeElement(slot: "content" | "single-frame-input-container" | "drawing-layer"): void;
 }
 //# sourceMappingURL=InnerComponent.d.ts.map

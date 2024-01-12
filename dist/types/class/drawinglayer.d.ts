@@ -6,6 +6,10 @@ export default class DrawingLayer {
     static DBR_LAYER_ID: number;
     static DLR_LAYER_ID: number;
     static USER_DEFINED_LAYER_BASE_ID: number;
+    /**
+     * @ignore
+     */
+    static TIP_LAYER_ID: number;
     fabricCanvas: fabric.Canvas;
     private id;
     get width(): number;

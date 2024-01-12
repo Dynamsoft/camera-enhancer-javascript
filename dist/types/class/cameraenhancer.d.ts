@@ -1,6 +1,6 @@
-import { ImageSourceAdapter, IntermediateResultReceiver, EnumImagePixelFormat, Point, DSRect, Rect } from "dynamsoft-core";
+import { ImageSourceAdapter, EnumImagePixelFormat, Point, DSRect, Rect, Warning, ImageSourceErrorListener } from "dynamsoft-core";
 import { CameraView } from "./CameraView";
-import { VideoDeviceInfo, Warning, DCEFrame, PlayCallbackInfo, Resolution } from "../interface";
+import { VideoDeviceInfo, DCEFrame, PlayCallbackInfo, Resolution } from "../interface";
 import { EnumEnhancedFeatures } from "../enum";
 export declare class CameraEnhancer extends ImageSourceAdapter {
     #private;
@@ -44,16 +44,15 @@ export declare class CameraEnhancer extends ImageSourceAdapter {
     get ifSaveLastUsedCamera(): boolean;
     set ifSkipCameraInspection(value: boolean);
     get ifSkipCameraInspection(): boolean;
-    set singleFrameMode(value: boolean);
-    get singleFrameMode(): boolean;
+    set cameraOpenTimeout(value: number);
+    get cameraOpenTimeout(): number;
+    set singleFrameMode(value: "disabled" | "camera" | "image");
+    get singleFrameMode(): "disabled" | "camera" | "image";
     private _onCameraSelChange;
     private _onResolutionSelChange;
     private _onCloseBtnClick;
     private _onSingleFrameAcquired;
-    /**
-     * @ignore
-     */
-    _intermediateResultReceiver: IntermediateResultReceiver;
+    _intermediateResultReceiver: any;
     /**
      * @ignore
      */
@@ -180,6 +179,7 @@ export declare class CameraEnhancer extends ImageSourceAdapter {
     _setScanRegion(region: DSRect | Rect): void;
     setScanRegion(region: DSRect | Rect): void;
     getScanRegion(): any;
+    setErrorListener(listener: ImageSourceErrorListener): void;
     hasNextImageToFetch(): boolean;
     startFetching(): void;
     stopFetching(): void;

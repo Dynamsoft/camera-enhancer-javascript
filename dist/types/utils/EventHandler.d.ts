@@ -5,8 +5,9 @@ export declare class EventHandler {
     off(event: string, listener: Function): void;
     offAll(event: string): void;
     fire(event: string, params?: Array<any>, options?: {
-        target?: Object;
+        target?: object;
         async?: boolean;
+        copy?: boolean;
     }): Promise<void>;
     dispose(): void;
 }
