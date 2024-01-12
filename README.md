@@ -34,8 +34,9 @@ In this guide, you will learn step by step on how to integrate the Dynamsoft Cam
 
 To use the SDK, we first include the following packages:
 
-1. `dynamsoft-camera-enhancer`: required, it provides the camera related functionalities used in this guide.
-2. `dynamsoft-core`: required, it includes basic classes, interfaces, and enumerations that are shared between all Dynamsoft SDKs.
+1. `dynamsoft-camera-enhancer`: Required, it provides the camera related functionalities used in this guide.
+2. `dynamsoft-core`: Required, it includes basic classes, interfaces, and enumerations that are shared between all Dynamsoft SDKs.
+3. `dynamsoft-license`: Optional, if you wish to utilize advanced features such as auto-zoom, enhanced focus, and tap-to-focus, you will need to include it.
 
 #### Use a CDN
 
@@ -44,7 +45,7 @@ The simplest way to include the SDK is to use a CDN such as [jsDelivr](https://j
 - jsDelivr
 
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-core@3.0.20/dist/core.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-core@3.0.30/dist/core.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dynamsoft-license@3.0.20/dist/license.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@4.0.1/dist/dce.js"></script>
   ```
@@ -52,13 +53,13 @@ The simplest way to include the SDK is to use a CDN such as [jsDelivr](https://j
 - UNPKG  
 
   ```html
-  <script src="https://unpkg.com/dynamsoft-core@3.0.20/dist/core.js"></script>
+  <script src="https://unpkg.com/dynamsoft-core@3.0.30/dist/core.js"></script>
   <script src="https://unpkg.com/dynamsoft-license@3.0.20/dist/license.js"></script>
   <script src="https://unpkg.com/dynamsoft-camera-enhancer@4.0.1/dist/dce.js"></script>
   ```
 
 > In some rare cases, you might not be able to access the CDN. If this happens, you can use
->- [https://download2.dynamsoft.com/packages/dynamsoft-core@3.0.20/dist/core.js](https://download2.dynamsoft.com/packages/dynamsoft-core@3.0.20/dist/core.js)
+>- [https://download2.dynamsoft.com/packages/dynamsoft-core@3.0.30/dist/core.js](https://download2.dynamsoft.com/packages/dynamsoft-core@3.0.30/dist/core.js)
 >- [https://download2.dynamsoft.com/packages/dynamsoft-license@3.0.20/dist/license.js](https://download2.dynamsoft.com/packages/dynamsoft-license@3.0.20/dist/license.js)
 >- [https://download2.dynamsoft.com/packages/dynamsoft-camera-enhancer@4.0.1/dist/dce.js](https://download2.dynamsoft.com/packages/dynamsoft-camera-enhancer@4.0.1/dist/dce.js)
 
@@ -89,7 +90,7 @@ The following shows a few ways to download the SDK.
 Depending on how you downloaded the SDK and where you put it. You can typically include it like this:
 
 ```html
-<script src="./dynamsoft-camera-enhancer-js-4.0.1/dynamsoft/distributables/dynamsoft-core@3.0.20/dist/core.js"></script>
+<script src="./dynamsoft-camera-enhancer-js-4.0.1/dynamsoft/distributables/dynamsoft-core@3.0.30/dist/core.js"></script>
 <script src="./dynamsoft-camera-enhancer-js-4.0.1/dynamsoft/distributables/dynamsoft-camera-enhancer@4.0.1/dist/dce.js"></script>
 ```
 
@@ -253,6 +254,7 @@ Dynamsoft.DCE.CameraView.createInstance("THE-URL-TO-THE-FILE");
 
   ```html
   <select class="dce-sel-resolution">
+      <option class="dce-opt-gotResolution" value="got"></option>
       <option data-width="1920" data-height="1080">1920x1080</option>
       <option data-width="1280" data-height="720">1280x720</option>
       <option data-width="640" data-height="480">640x480</option>

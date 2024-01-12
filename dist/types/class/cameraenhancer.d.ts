@@ -1,4 +1,4 @@
-import { ImageSourceAdapter, EnumImagePixelFormat, Point, DSRect, Rect, Warning, ImageSourceErrorListener } from "@dynamsoft/dynamsoft-core";
+import { ImageSourceAdapter, EnumImagePixelFormat, Point, DSRect, Rect, Warning, ImageSourceErrorListener } from "dynamsoft-core";
 import { CameraView } from "./CameraView";
 import { VideoDeviceInfo, DCEFrame, PlayCallbackInfo, Resolution } from "../interface";
 import { EnumEnhancedFeatures } from "../enum";

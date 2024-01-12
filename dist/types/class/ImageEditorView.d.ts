@@ -1,4 +1,4 @@
-import { DSImageData } from "@dynamsoft/dynamsoft-core";
+import { DSImageData } from "dynamsoft-core";
 import { View } from "./View";
 import DrawingLayer from "./drawinglayer";
 export declare class ImageEditorView extends View {

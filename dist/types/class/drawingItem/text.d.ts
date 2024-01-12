@@ -1,4 +1,4 @@
-import { Rect } from "@dynamsoft/dynamsoft-core";
+import { Rect } from "dynamsoft-core";
 import { DrawingItem } from "./drawingitem";
 export declare class DT_Text extends DrawingItem {
     #private;

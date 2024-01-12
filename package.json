@@ -79,7 +79,7 @@
 		"/samples.url"
 	],
 	"devDependencies": {
-		"@dynamsoft/camera-manager": "^2.0.0-16",
+		"@dynamsoft/camera-manager": "^2.0.0",
 		"@dynamsoft/dynamsoft-barcode-reader": "^10.0.20-dev-20231222153407",
 		"@dynamsoft/rd2-scripts": "^0.1.4",
 		"@dynamsoft/tools": "^0.0.1",
@@ -96,9 +96,8 @@
 		"typescript": "^4.9.5"
 	},
 	"dependencies": {
-		"@dynamsoft/dynamsoft-core": "^3.0.20-dev-20231225171030",
 		"dm-fabric": "^5.1.17",
 		"dm-howler": "^2.2.4",
-		"dynamsoft-core": "^3.0.10"
+		"dynamsoft-core": "^3.0.30"
 	}
 }

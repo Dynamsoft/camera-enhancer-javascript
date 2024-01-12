@@ -1,4 +1,4 @@
-import { Point } from "@dynamsoft/dynamsoft-core";
+import { Point } from "dynamsoft-core";
 export interface TipConfig {
     topLeftPoint: Point;
     width: number;

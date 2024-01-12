@@ -1,4 +1,4 @@
-import { DSRect, Rect } from "@dynamsoft/dynamsoft-core";
+import { DSRect, Rect } from "dynamsoft-core";
 import { View } from "./View";
 import { EventHandler } from "../utils";
 export declare class CameraView extends View {

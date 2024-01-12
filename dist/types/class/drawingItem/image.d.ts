@@ -1,4 +1,4 @@
-import { DSImageData, Rect } from "@dynamsoft/dynamsoft-core";
+import { DSImageData, Rect } from "dynamsoft-core";
 import { DrawingItem } from "./drawingitem";
 export declare class DT_Image extends DrawingItem {
     #private;
