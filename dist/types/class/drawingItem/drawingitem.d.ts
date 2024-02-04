@@ -44,4 +44,3 @@ export declare class DrawingItem {
     setAttribute(attribute: string, value: any): void;
     getAttribute(attribute: string): void;
 }
-//# sourceMappingURL=drawingitem.d.ts.map

@@ -1,4 +1,4 @@
-import DrawingLayer from "./drawinglayer";
+import { DrawingLayer } from "./drawinglayer";
 import { DrawingStyle } from "../interface/drawingstyle";
 export declare class DrawingLayersManager {
     _arrDrawingLayer: DrawingLayer[];
@@ -28,4 +28,3 @@ export declare class DrawingLayersManager {
     setVisible(visible: boolean): void;
     _switchPointerEvent(): void;
 }
-//# sourceMappingURL=drawinglayermanager.d.ts.map

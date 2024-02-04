@@ -5,4 +5,3 @@ export interface DSImage {
     stride?: number;
     pixelFormat: string;
 }
-//# sourceMappingURL=dsimage.d.ts.map

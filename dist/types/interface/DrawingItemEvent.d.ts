@@ -6,4 +6,3 @@ export interface DrawingItemEvent extends Event {
     itemPageX: number;
     itemPageY: number;
 }
-//# sourceMappingURL=DrawingItemEvent.d.ts.map

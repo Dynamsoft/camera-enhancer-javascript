@@ -8,4 +8,3 @@ export declare enum EnumPixelFormat {
     BRGA = "brga",
     BGRA = "bgra"
 }
-//# sourceMappingURL=enumPixelFormat.d.ts.map

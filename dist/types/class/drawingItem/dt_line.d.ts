@@ -5,4 +5,3 @@ export declare class DT_Line extends DT_Polygon {
     protected _extendSet(property: string, value: any): boolean;
     protected _extendGet(property: string): any;
 }
-//# sourceMappingURL=dt_line.d.ts.map

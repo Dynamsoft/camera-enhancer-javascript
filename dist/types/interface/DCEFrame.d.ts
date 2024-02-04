@@ -24,4 +24,3 @@ export interface DCEFrame extends DSImage {
      */
     _bUseWebGL: boolean;
 }
-//# sourceMappingURL=DCEFrame.d.ts.map

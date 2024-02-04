@@ -1,6 +1,6 @@
 {
 	"name": "dynamsoft-camera-enhancer",
-	"version": "3.3.9",
+	"version": "3.3.10",
 	"description": "Allow your website to easily control cameras on desktop and mobile devices.",
 	"private": false,
 	"homepage": "https://www.dynamsoft.com/camera-enhancer/docs/programming/javascript/?ver=latest",
@@ -46,7 +46,7 @@
 		"build-dev": "rollup -c --environment BUILD:development",
 		"build": "rollup -c --environment BUILD:production",
 		"build:doc": "typedoc",
-		"update:readme": "updateReadme --package=dynamsoft-camera-enhancer --version=auto --branch=3.3.9",
+		"update:readme": "updateReadme --package=dynamsoft-camera-enhancer --version=auto --html",
 		"update:prod": "updatePackage --package=dynamsoft-camera-enhancer --version=auto --env=production --tag=v3-latest",
 		"update:beta": "updatePackage --package=dynamsoft-camera-enhancer --version=auto --env=beta --tag=beta",
 		"update:iv": "updatePackage --package=dynamsoft-camera-enhancer --version=auto --env=internalVersion --tag=iv",
@@ -68,33 +68,25 @@
 		"/dist/*.html",
 		"/dist/*.wasm",
 		"/dist/**/*.d.ts",
-		"/Api Reference.url",
-		"/legal.txt",
+		"/API Reference.url",
+		"/LEGAL.txt",
 		"/samples.url"
 	],
 	"devDependencies": {
-		"@babel/core": "7.15.8",
-		"@babel/preset-env": "7.15.8",
-		"@dynamsoft/rd2-scripts": "^0.0.78",
-		"@rollup/plugin-babel": "5.3.0",
+		"@dynamsoft/rd2-scripts": "^0.1.15",
 		"@rollup/plugin-node-resolve": "^13.3.0",
-		"@rollup/plugin-replace": "3.0.0",
-		"@rollup/plugin-typescript": "8.3.0",
+		"@rollup/plugin-replace": "^5.0.5",
+		"@rollup/plugin-terser": "^0.4.4",
+		"@rollup/plugin-typescript": "^11.1.6",
 		"@scannerproxy/browser-info": "^1.0.7",
 		"@scannerproxy/curscript-path": "^1.0.3",
-		"@types/node": "16.11.2",
+		"@types/node": "^20.4.2",
 		"detect-browser-node-ssr": "^2.0.0",
-		"highlight.js": "^9.15.6",
 		"rollup": "^2.58.0",
-		"rollup-plugin-terser": "7.0.2",
-		"showdown": "^1.9.0",
-		"tslib": "2.3.1",
-		"typedoc": "0.22.6",
-		"typedoc-plugin-missing-exports": "0.22.3",
-		"typescript": "4.3.5"
+		"tslib": "^2.6.2",
+		"typescript": "^4.9.5"
 	},
 	"dependencies": {
-		"dm-fabric": "^5.1.17",
-		"mutable-promise": "^1.1.13"
+		"dm-fabric": "^5.1.17"
 	}
 }

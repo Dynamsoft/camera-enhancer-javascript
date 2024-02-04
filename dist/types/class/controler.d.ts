@@ -99,4 +99,3 @@ export declare class Controler {
      */
     render(actionName?: string): any;
 }
-//# sourceMappingURL=controler.d.ts.map

@@ -5,4 +5,3 @@ export declare class DT_Group extends DrawingItem {
     addChildItem(item: DrawingItem): void;
     removeChildItem(item: DrawingItem): void;
 }
-//# sourceMappingURL=dt_group.d.ts.map

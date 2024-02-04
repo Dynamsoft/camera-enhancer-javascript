@@ -7,8 +7,10 @@ import { ImageSource } from '../interface/imagesource';
 import { DSImage } from '../interface/dsimage';
 import { Controler } from './controler';
 import { Warning } from '../interface/warning';
-declare type PixelFormat = "grey" | "grey32" | "rgba" | "rbga" | "grba" | "gbra" | "brga" | "bgra";
-export default class CameraEnhancer implements ImageSource {
+import { DrawingLayer } from "./drawinglayer";
+import { DrawingStyle } from "../interface/drawingstyle";
+type PixelFormat = "grey" | "grey32" | "rgba" | "rbga" | "grba" | "gbra" | "brga" | "bgra";
+export declare class CameraEnhancer implements ImageSource {
     private static _jsVersion;
     private static _jsEditVersion;
     private static _version;
@@ -202,6 +204,10 @@ export default class CameraEnhancer implements ImageSource {
      * Set src to video element to play static video.
      */
     videoSrc: string | MediaStream | MediaSource | Blob;
+    /**
+     * Sets or returns the the maximum time allowed for opening a selected camera.
+     * @defaultValue `4000`
+     */
     cameraOpenTimeout: number;
     /** @ignore */
     videoSettings: MediaStreamConstraints;
@@ -1018,15 +1024,15 @@ export default class CameraEnhancer implements ImageSource {
      * @ignore
      */
     private _updateDrawingLayersSize;
-    _createDrawingLayer(drawingLayerId?: number): import("./drawinglayer").default;
+    _createDrawingLayer(drawingLayerId?: number): DrawingLayer;
     deleteDrawingLayer(drawingLayerId: number): void;
-    createDrawingLayer(): import("./drawinglayer").default;
-    getDrawingLayer(drawingLayerId: number): import("./drawinglayer").default;
-    getDrawingLayers(): import("./drawinglayer").default[];
+    createDrawingLayer(): DrawingLayer;
+    getDrawingLayer(drawingLayerId: number): DrawingLayer;
+    getDrawingLayers(): Array<DrawingLayer>;
     getSelectedDrawingItems(): any[];
     createDrawingStyle(styleDefinition: any): number;
-    getDrawingStyle(styleId: number): import("..").DrawingStyle;
-    getDrawingStyles(): import("..").DrawingStyle[];
+    getDrawingStyle(styleId: number): DrawingStyle;
+    getDrawingStyles(): Array<DrawingStyle>;
     updateDrawingStyle(styleId: number, styleDefinition: any): void;
     clearDrawingLayers(): void;
     showTip(x: number, y: number, width: number, initialMessage?: string, duration?: number, autoShowSuggestedTip?: boolean): void;
@@ -1073,4 +1079,3 @@ export default class CameraEnhancer implements ImageSource {
     dispose(removeUIElement: boolean): void;
 }
 export {};
-//# sourceMappingURL=cameraenhancer.d.ts.map

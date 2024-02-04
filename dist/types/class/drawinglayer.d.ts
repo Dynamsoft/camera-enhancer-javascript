@@ -1,7 +1,7 @@
 import { fabric } from "dm-fabric";
 import { DrawingItem } from "./drawingItem";
 import { DrawingStyle } from "../interface/drawingstyle";
-export default class DrawingLayer {
+export declare class DrawingLayer {
     fabricCanvas: fabric.Canvas;
     private id;
     private _mapDrawingStyles;
@@ -68,4 +68,3 @@ export default class DrawingLayer {
     renderAll(): void;
     dispose(): void;
 }
-//# sourceMappingURL=drawinglayer.d.ts.map

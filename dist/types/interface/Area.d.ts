@@ -18,4 +18,3 @@ export interface Area {
      */
     height: number;
 }
-//# sourceMappingURL=Area.d.ts.map

@@ -5,4 +5,3 @@ export declare class DT_Image extends DrawingItem {
     protected _extendSet(property: string, value: any): boolean;
     protected _extendGet(property: string): any;
 }
-//# sourceMappingURL=dt_image.d.ts.map
