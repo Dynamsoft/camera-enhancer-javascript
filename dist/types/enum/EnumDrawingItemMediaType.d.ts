@@ -8,4 +8,3 @@ export declare enum EnumDrawingItemMediaType {
     DIMT_LINE = 64,
     DIMT_GROUP = 128
 }
-//# sourceMappingURL=EnumDrawingItemMediaType.d.ts.map

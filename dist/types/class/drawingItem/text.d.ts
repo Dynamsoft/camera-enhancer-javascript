@@ -1,5 +1,5 @@
 import { Rect } from "dynamsoft-core";
-import { DrawingItem } from "./drawingitem";
+import { DrawingItem } from "./DrawingItem";
 export declare class DT_Text extends DrawingItem {
     #private;
     private _text;
@@ -16,4 +16,3 @@ export declare class DT_Text extends DrawingItem {
     setTextRect(rect: Rect): void;
     getTextRect(): Rect;
 }
-//# sourceMappingURL=text.d.ts.map

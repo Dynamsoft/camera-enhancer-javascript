@@ -5,4 +5,3 @@ export interface DCEFrame extends DSImageData {
     isDCEFrame: boolean;
     tag?: VideoFrameTag;
 }
-//# sourceMappingURL=DCEFrame.d.ts.map

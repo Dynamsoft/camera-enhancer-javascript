@@ -11,4 +11,3 @@ export declare class EventHandler {
     }): Promise<void>;
     dispose(): void;
 }
-//# sourceMappingURL=EventHandler.d.ts.map

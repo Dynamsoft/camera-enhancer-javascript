@@ -1,18 +1,18 @@
 import { Note, DrawingItemEvent } from "../../interface";
 import { EnumDrawingItemState, EnumDrawingItemMediaType } from "../../enum";
-export declare enum EnumItemType {
-    ARC = "arc",
-    IMAGE = "image",
-    LINE = "line",
-    POLYGON = "polygon",
-    QUAD = "quad",
-    RECT = "rect",
-    TEXT = "text",
-    GROUP = "group"
+declare enum EnumItemType {
+    ARC = 0,
+    IMAGE = 1,
+    LINE = 2,
+    POLYGON = 3,
+    QUAD = 4,
+    RECT = 5,
+    TEXT = 6,
+    GROUP = 7
 }
-export declare enum EnumItemState {
-    DEFAULT = "default",
-    SELECTED = "selected"
+declare enum EnumItemState {
+    DEFAULT = 0,
+    SELECTED = 1
 }
 export declare abstract class DrawingItem {
     #private;
@@ -131,4 +131,4 @@ export declare abstract class DrawingItem {
      */
     abstract updatePosition(): void;
 }
-//# sourceMappingURL=drawingitem.d.ts.map
+export {};

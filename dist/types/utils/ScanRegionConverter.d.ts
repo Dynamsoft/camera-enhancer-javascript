@@ -14,4 +14,3 @@ export declare class ScanRegionConverter {
         height: number;
     };
 }
-//# sourceMappingURL=ScanRegionConverter.d.ts.map

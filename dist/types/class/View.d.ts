@@ -1,7 +1,7 @@
-import DrawingLayer from "./drawinglayer";
-import { DrawingLayersManager } from "./drawinglayermanager";
+import { DrawingLayer } from "./DrawingLayer";
+import { DrawingLayerManager } from "./DrawingLayerManager";
 import { InnerComponent } from "./InnerComponent";
-import { DT_Text } from "./drawingItem";
+import { DrawingItem, DT_Text } from "./DrawingItem";
 import { TipConfig } from "../interface";
 declare class DT_Tip extends DT_Text {
     #private;
@@ -20,7 +20,7 @@ export declare abstract class View {
      */
     _innerComponent: InnerComponent;
     /** @ignore */
-    _drawingLayersManager: DrawingLayersManager;
+    _drawingLayerManager: DrawingLayerManager;
     /** @ignore */
     _layerBaseCvs: HTMLCanvasElement;
     /** @ignore */
@@ -65,7 +65,7 @@ export declare abstract class View {
         height: number;
         objectFit: string;
     }): void;
-    getSelectedDrawingItems(): any[];
+    getSelectedDrawingItems(): Array<DrawingItem>;
     setTipConfig(tipConfig: TipConfig): void;
     getTipConfig(): TipConfig;
     setTipVisible(visible: boolean): void;
@@ -73,4 +73,3 @@ export declare abstract class View {
     updateTipMessage(message: string): void;
 }
 export {};
-//# sourceMappingURL=View.d.ts.map

@@ -1,4 +1,4 @@
-import { DrawingItem } from "../class/drawingItem";
+import { DrawingItem } from "../class/DrawingItem";
 export interface DrawingItemEvent extends Event {
     targetItem: DrawingItem;
     itemClientX: number;
@@ -6,4 +6,3 @@ export interface DrawingItemEvent extends Event {
     itemPageX: number;
     itemPageY: number;
 }
-//# sourceMappingURL=DrawingItemEvent.d.ts.map

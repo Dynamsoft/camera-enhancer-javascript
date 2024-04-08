@@ -1,5 +1,5 @@
 import { Rect } from "dynamsoft-core";
-import { DrawingItem } from "./drawingitem";
+import { DrawingItem } from "./DrawingItem";
 export declare class DT_Rect extends DrawingItem {
     #private;
     constructor(rect: Rect, drawingStyleId?: number);
@@ -13,4 +13,3 @@ export declare class DT_Rect extends DrawingItem {
     setRect(rect: Rect): void;
     getRect(): Rect;
 }
-//# sourceMappingURL=rect.d.ts.map

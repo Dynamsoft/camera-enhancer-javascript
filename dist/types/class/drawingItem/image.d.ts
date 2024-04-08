@@ -1,5 +1,5 @@
 import { DSImageData, Rect } from "dynamsoft-core";
-import { DrawingItem } from "./drawingitem";
+import { DrawingItem } from "./DrawingItem";
 export declare class DT_Image extends DrawingItem {
     #private;
     private image;
@@ -18,4 +18,3 @@ export declare class DT_Image extends DrawingItem {
     setImageRect(rect: Rect): void;
     getImageRect(): Rect;
 }
-//# sourceMappingURL=image.d.ts.map

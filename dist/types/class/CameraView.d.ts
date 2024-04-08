@@ -226,4 +226,3 @@ export declare class CameraView extends View {
      */
     dispose(): void;
 }
-//# sourceMappingURL=CameraView.d.ts.map

@@ -1,4 +1,4 @@
-import { DT_Polygon } from "./polygon";
+import { DT_Polygon } from "./Polygon";
 import { LineSegment, Polygon } from "dynamsoft-core";
 export declare class DT_Line extends DT_Polygon {
     #private;
@@ -21,4 +21,3 @@ export declare class DT_Line extends DT_Polygon {
     setLine(line: LineSegment): void;
     getLine(): LineSegment;
 }
-//# sourceMappingURL=line.d.ts.map
