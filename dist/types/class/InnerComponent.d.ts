@@ -6,4 +6,3 @@ export declare class InnerComponent extends HTMLElement {
     getElement(slot: "content" | "single-frame-input-container" | "drawing-layer"): HTMLElement;
     removeElement(slot: "content" | "single-frame-input-container" | "drawing-layer"): void;
 }
-//# sourceMappingURL=InnerComponent.d.ts.map

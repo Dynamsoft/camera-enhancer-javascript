@@ -1,5 +1,5 @@
 import { fabric } from "dm-fabric";
-import { DrawingItem } from "./drawingitem";
+import { DrawingItem } from "./DrawingItem";
 import { Polygon } from "dynamsoft-core";
 export declare function polygonPositionHandler(dim: any, finalMatrix: any, fabricObject: any): fabric.Point;
 export declare function actionHandler(eventData: any, transform: any, x: any, y: any): boolean;
@@ -17,4 +17,3 @@ export declare class DT_Polygon extends DrawingItem {
     setPolygon(polygon: Polygon): void;
     getPolygon(): Polygon;
 }
-//# sourceMappingURL=polygon.d.ts.map

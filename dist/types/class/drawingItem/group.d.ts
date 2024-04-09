@@ -1,4 +1,4 @@
-import { DrawingItem } from "./drawingitem";
+import { DrawingItem } from "./DrawingItem";
 export declare class DT_Group extends DrawingItem {
     constructor(childItems: Array<DrawingItem>);
     protected extendSet(property: string, value: any): boolean;
@@ -12,4 +12,3 @@ export declare class DT_Group extends DrawingItem {
     setChildDrawingItems(item: DrawingItem): void;
     removeChildItem(item: DrawingItem): void;
 }
-//# sourceMappingURL=group.d.ts.map

@@ -33,7 +33,7 @@ export declare class CameraEnhancer extends ImageSourceAdapter {
     /**
      * @ignore
      */
-    _imageDataGetter: any;
+    private _imageDataGetter;
     /**
      * @ignore
      */
@@ -193,4 +193,3 @@ export declare class CameraEnhancer extends ImageSourceAdapter {
     convertToClientCoordinates(point: Point): Point;
     dispose(): void;
 }
-//# sourceMappingURL=CameraEnhancer.d.ts.map

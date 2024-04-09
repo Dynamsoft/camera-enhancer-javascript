@@ -5,4 +5,3 @@ export declare class TimeCharger {
     startCharging(): void;
     stopCharging(): void;
 }
-//# sourceMappingURL=TimeCharger.d.ts.map

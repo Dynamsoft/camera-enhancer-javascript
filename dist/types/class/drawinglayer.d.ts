@@ -1,7 +1,7 @@
 import { fabric } from "dm-fabric";
-import { DrawingItem } from "./drawingItem";
+import { DrawingItem } from "./DrawingItem";
 import { EnumDrawingItemState, EnumDrawingItemMediaType } from "../enum";
-export default class DrawingLayer {
+export declare class DrawingLayer {
     static DDN_LAYER_ID: number;
     static DBR_LAYER_ID: number;
     static DLR_LAYER_ID: number;
@@ -100,4 +100,3 @@ export default class DrawingLayer {
     renderAll(): void;
     dispose(): void;
 }
-//# sourceMappingURL=drawinglayer.d.ts.map

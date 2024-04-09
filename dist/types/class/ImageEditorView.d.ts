@@ -1,6 +1,6 @@
 import { DSImageData } from "dynamsoft-core";
 import { View } from "./View";
-import DrawingLayer from "./drawinglayer";
+import { DrawingLayer } from "./DrawingLayer";
 export declare class ImageEditorView extends View {
     #private;
     static createInstance(elementOrUrl?: HTMLElement | string): Promise<ImageEditorView>;
@@ -9,6 +9,10 @@ export declare class ImageEditorView extends View {
      * @ignore
      */
     containerClassName: string;
+    /**
+     * @ignore
+     */
+    isUseMagnifier: boolean;
     get disposed(): boolean;
     private constructor();
     private _setUIElement;
@@ -62,4 +66,3 @@ export declare class ImageEditorView extends View {
     _createDrawingLayer(drawingLayerId: number, width?: number, height?: number, objectFit?: string): DrawingLayer;
     dispose(): void;
 }
-//# sourceMappingURL=ImageEditorView.d.ts.map

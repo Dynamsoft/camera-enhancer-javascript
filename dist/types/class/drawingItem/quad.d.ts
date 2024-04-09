@@ -1,5 +1,5 @@
 import { Polygon, Quadrilateral } from "dynamsoft-core";
-import { DT_Polygon } from "./polygon";
+import { DT_Polygon } from "./Polygon";
 export declare class DT_Quad extends DT_Polygon {
     #private;
     constructor(quad: Quadrilateral, drawingStyleId?: number);
@@ -17,4 +17,3 @@ export declare class DT_Quad extends DT_Polygon {
     setQuad(quad: Quadrilateral): void;
     getQuad(): Quadrilateral;
 }
-//# sourceMappingURL=quad.d.ts.map

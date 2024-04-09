@@ -101,4 +101,3 @@ export declare const isTipConfig: (value: any) => value is TipConfig;
  * @returns
  */
 export declare const isVideoFrameTag: (value: any) => value is VideoFrameTag;
-//# sourceMappingURL=TypeCheck.d.ts.map

@@ -5,4 +5,3 @@ export interface TipConfig {
     duration: number;
     coordinateBase?: "view" | "image";
 }
-//# sourceMappingURL=TipConfig.d.ts.map

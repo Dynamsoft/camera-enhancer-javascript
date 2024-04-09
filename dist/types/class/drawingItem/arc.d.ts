@@ -1,5 +1,5 @@
 import { Arc } from "dynamsoft-core";
-import { DrawingItem } from "./drawingitem";
+import { DrawingItem } from "./DrawingItem";
 export declare class DT_Arc extends DrawingItem {
     #private;
     constructor(arc: Arc, drawingStyleId?: number);
@@ -13,4 +13,3 @@ export declare class DT_Arc extends DrawingItem {
     setArc(arc: Arc): void;
     getArc(): Arc;
 }
-//# sourceMappingURL=arc.d.ts.map

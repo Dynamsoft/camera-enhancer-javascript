@@ -9,4 +9,3 @@ export interface VideoFrameTag extends ImageTag {
     timeSpent: number;
     timeStamp: number;
 }
-//# sourceMappingURL=VideoFrameTag.d.ts.map

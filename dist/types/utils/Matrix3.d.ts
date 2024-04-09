@@ -9,4 +9,3 @@ export declare class Matrix3 {
     static rotate(matrix: Array<number>, angleInRadians: number): number[];
     static scale(matrix: Array<number>, sx: number, sy: number): number[];
 }
-//# sourceMappingURL=Matrix3.d.ts.map

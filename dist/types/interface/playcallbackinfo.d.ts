@@ -3,4 +3,3 @@ export interface PlayCallbackInfo {
     width: number;
     deviceId: string;
 }
-//# sourceMappingURL=playcallbackinfo.d.ts.map
